@@ -1,1 +1,62 @@
+name: Build Android APK
 
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+
+
+      - name: Setup Capacitor
+        run: |
+          npx cap init "Bk List" "com.bklist.app" --web-dir=www
+
+
+      - name: Add Android Platform
+        run: |
+          npx cap add android
+
+
+      - name: Copy Web Files
+        run: |
+          npx cap copy android
+
+
+      - name: Build Debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+
+      - name: Rename APK
+        run: |
+          mv android/app/build/outputs/apk/debug/app-debug.apk android/app/build/outputs/apk/debug/Bk-List.apk
+
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bk-List
+          path: android/app/build/outputs/apk/debug/Bk-List.apk
