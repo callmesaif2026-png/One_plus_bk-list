@@ -1,0 +1,15 @@
+{
+  "name": "bk-list-app",
+  "version": "1.0.0",
+  "description": "Bk List Firebase Sync App",
+  "main": "index.js",
+
+  "dependencies": {
+    "@capacitor/core": "^6.1.0",
+    "@capacitor/android": "^6.1.0",
+    "@capacitor/cli": "^6.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
