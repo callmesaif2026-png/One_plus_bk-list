@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f7f9fc">
-<title>Bkash Personal List</title>
+<title>Bkash Personal List Live Sync</title>
 
 <style>
 :root{
@@ -685,6 +685,182 @@ a{text-decoration:none}
 }
 </style>
 
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script>
+window.firebaseDB = null;
+window.firebaseInitError = null;
+try{
+  var firebaseConfig = {
+    apiKey: "AIzaSyArqkSz90owhkBWOiVWWfPyH5qaL95J9ko",
+    authDomain: "bk-list-af139.firebaseapp.com",
+    databaseURL: "https://bk-list-af139-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "bk-list-af139",
+    storageBucket: "bk-list-af139.firebasestorage.app",
+    messagingSenderId: "408830466247",
+    appId: "1:408830466247:web:883d2ec5d557ddcfd306e2",
+    measurementId: "G-QRWT17MSVG"
+  };
+  if(window.firebase && !firebase.apps.length){
+    firebase.initializeApp(firebaseConfig);
+  }
+  if(window.firebase){
+    window.firebaseDB = firebase.database();
+  }
+}catch(error){
+  window.firebaseInitError = error;
+  console.error("Firebase initialization failed:", error);
+}
+</script>
+
+
+<style>
+/* ===== V19: vertical number rows + per-number note ===== */
+.numbers{
+  grid-template-columns:1fr!important;
+  gap:7px!important;
+}
+
+.number-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:8px!important;
+  padding:8px 9px!important;
+  border-bottom:1px solid #dce6ec!important;
+}
+
+.number-row:last-child{
+  border-bottom:0!important;
+}
+
+.number-main{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 88px!important;
+  align-items:center!important;
+  gap:8px!important;
+}
+
+.phone{
+  overflow:visible!important;
+  text-overflow:clip!important;
+  white-space:nowrap!important;
+  font-size:16px!important;
+  font-weight:900!important;
+}
+
+.sim-note{
+  width:88px;
+  height:31px;
+  padding:0 7px;
+  border:1px solid #d8e3ea;
+  border-radius:8px;
+  outline:none;
+  background:#fff;
+  color:#506575;
+  font-size:11px;
+  font-weight:800;
+  text-align:center;
+}
+
+.sim-note:focus{
+  border-color:var(--pink);
+  box-shadow:0 0 0 2px rgba(232,23,103,.08);
+}
+
+.number-limits{
+  margin-left:auto!important;
+}
+
+@media(max-width:520px){
+  .number-main{
+    grid-template-columns:minmax(0,1fr) 72px!important;
+    gap:6px!important;
+  }
+
+  .sim-note{
+    width:72px;
+    font-size:10px;
+  }
+
+  .phone{
+    font-size:15px!important;
+  }
+}
+
+@media(max-width:360px){
+  .number-row{
+    grid-template-columns:1fr!important;
+  }
+
+  .number-main{
+    grid-template-columns:minmax(0,1fr) 68px!important;
+  }
+
+  .number-limits{
+    margin-left:0!important;
+    justify-self:end!important;
+  }
+
+  .sim-note{
+    width:68px;
+  }
+
+  .phone{
+    font-size:14px!important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== V21: compact vertical number rows ===== */
+.numbers{
+  gap:4px!important;
+  margin-bottom:7px!important;
+}
+
+.number-row{
+  min-height:46px!important;
+  padding:5px 7px!important;
+  gap:5px!important;
+  border-radius:9px!important;
+}
+
+.number-main{
+  gap:5px!important;
+}
+
+.sim-note{
+  height:27px!important;
+  padding:0 6px!important;
+  border-radius:7px!important;
+}
+
+.phone{
+  line-height:1.1!important;
+}
+
+@media(max-width:520px){
+  .number-row{
+    min-height:43px!important;
+    padding:4px 6px!important;
+  }
+
+  .sim-note{
+    height:26px!important;
+  }
+}
+
+@media(max-width:360px){
+  .number-row{
+    min-height:41px!important;
+    padding:4px 5px!important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -749,10 +925,13 @@ a{text-decoration:none}
 (function(){
   "use strict";
 
-  var STORAGE_KEY = "bks_manager_v4";
+  var STORAGE_KEY = "bks_manager_v18";
+  var FIREBASE_PATH = "appDataJsonV18";
   var PER_NUMBER_LIMIT = 300000;
   var DAILY_AMOUNT = 50000;
   var data = loadData();
+  var cloudReady = false;
+  var applyingCloudData = false;
 
   function byId(id){
     return document.getElementById(id);
@@ -777,8 +956,24 @@ a{text-decoration:none}
     return {blocks:[]};
   }
 
+  function saveLocalData(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }catch(error){
+      console.error("Local save failed:", error);
+    }
+  }
+
   function saveData(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    saveLocalData();
+
+    if(window.firebaseDB && cloudReady && !applyingCloudData){
+      window.firebaseDB.ref(FIREBASE_PATH).set(JSON.stringify(data))
+        .catch(function(error){
+          console.error("Firebase save failed:", error);
+          toast("Cloud save হয়নি, ফোনে save হয়েছে");
+        });
+    }
   }
 
   function normalizePhone(value){
@@ -791,6 +986,14 @@ a{text-decoration:none}
 
   function formatMoney(value){
     return new Intl.NumberFormat("en-IN").format(Number(value || 0));
+  }
+
+  function escapeHtml(value){
+    return String(value || "")
+      .replace(/&/g,"&amp;")
+      .replace(/"/g,"&quot;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
   }
 
   function todayMark(){
@@ -817,6 +1020,20 @@ a{text-decoration:none}
     if(typeof block.copyAmountMode !== "boolean"){
       block.copyAmountMode = false;
     }
+
+    if(!Array.isArray(block.notes)){
+      block.notes = block.numbers.map(function(){
+        return "";
+      });
+    }
+
+    while(block.notes.length < block.numbers.length){
+      block.notes.push("");
+    }
+
+    block.notes = block.notes.slice(0, block.numbers.length).map(function(note){
+      return String(note || "");
+    });
 
     if(!Array.isArray(block.marks)){
       block.marks = block.numbers.map(function(){
@@ -982,6 +1199,10 @@ a{text-decoration:none}
           '<div class="number-row">'+
             '<div class="number-main">'+
               '<div class="phone">'+number+'</div>'+
+              '<input class="sim-note" type="text" maxlength="24" '+
+                'placeholder="" '+
+                'value="'+escapeHtml(block.notes[numberIndex] || "")+'" '+
+                'data-note-id="'+block.id+'" data-note-index="'+numberIndex+'">'+
               '<div class="number-used">'+usedForNumber+'/6</div>'+
             '</div>'+
             miniButtons+
@@ -1255,8 +1476,12 @@ a{text-decoration:none}
       }
 
       var oldMarks = editingBlock.marks || [];
+      var oldNotes = editingBlock.notes || [];
 
       editingBlock.numbers = numbers;
+      editingBlock.notes = numbers.map(function(number,index){
+        return String(oldNotes[index] || "");
+      });
       editingBlock.marks = numbers.map(function(number,index){
         if(oldMarks[index] && Array.isArray(oldMarks[index])){
           return oldMarks[index].slice(0,6);
@@ -1272,6 +1497,9 @@ a{text-decoration:none}
         numbers:numbers,
         limitMode:false,
         copyAmountMode:false,
+        notes:numbers.map(function(){
+          return "";
+        }),
         marks:numbers.map(function(){
           return [null,null,null,null,null,null];
         })
@@ -1283,6 +1511,27 @@ a{text-decoration:none}
     saveData();
     render();
     closeModal();
+  });
+
+  var noteSaveTimer = null;
+
+  byId("blocks").addEventListener("input",function(event){
+    var input = event.target.closest("input[data-note-id]");
+    if(!input) return;
+
+    var block = data.blocks.find(function(item){
+      return item.id === input.dataset.noteId;
+    });
+    if(!block) return;
+
+    normalizeBlock(block);
+    var noteIndex = parseInt(input.dataset.noteIndex,10);
+    block.notes[noteIndex] = input.value;
+
+    clearTimeout(noteSaveTimer);
+    noteSaveTimer = setTimeout(function(){
+      saveData();
+    },350);
   });
 
   byId("blocks").addEventListener("click",function(event){
@@ -1330,17 +1579,24 @@ a{text-decoration:none}
     }
 
     if(action === "copy"){
+      normalizeBlock(block);
+
+      var lines = block.numbers.map(function(number,index){
+        var note = String(block.notes[index] || "").trim();
+        return note ? number+" "+note : number;
+      });
+
       var text;
 
       if(block.copyAmountMode){
-        text = block.numbers.map(function(number){
-          return number+" ✅\n50000";
+        text = lines.map(function(line){
+          return line+" ✅\n50000";
         }).join("\n\n");
 
-        copyText(text,"নাম্বার ও 50000 কপি হয়েছে");
+        copyText(text,"নাম্বার, নোট ও 50000 কপি হয়েছে");
       }else{
-        text = block.numbers.join("\n");
-        copyText(text,"সব নাম্বার কপি হয়েছে");
+        text = lines.join("\n");
+        copyText(text,"নাম্বার ও নোট কপি হয়েছে");
       }
 
       return;
@@ -1365,8 +1621,47 @@ a{text-decoration:none}
     }
   });
 
-  saveData();
   render();
+
+  if(window.firebaseDB){
+    window.firebaseDB.ref(FIREBASE_PATH).on(
+      "value",
+      function(snapshot){
+        cloudReady = true;
+        var cloudValue = snapshot.val();
+
+        if(typeof cloudValue === "string" && cloudValue){
+          try{
+            var parsed = JSON.parse(cloudValue);
+            if(parsed && Array.isArray(parsed.blocks)){
+              applyingCloudData = true;
+              data = parsed;
+              data.blocks.forEach(normalizeBlock);
+              saveLocalData();
+              render();
+            }
+          }catch(error){
+            console.error("Cloud data parse failed:", error);
+            toast("Cloud data পড়া যায়নি");
+          }finally{
+            applyingCloudData = false;
+          }
+        }else{
+          window.firebaseDB.ref(FIREBASE_PATH).set(JSON.stringify(data))
+            .catch(function(error){
+              console.error("Initial Firebase save failed:", error);
+            });
+        }
+      },
+      function(error){
+        cloudReady = false;
+        console.error("Firebase read failed:", error);
+        toast("Offline mode: ফোনে save হবে");
+      }
+    );
+  }else{
+    console.error("Firebase unavailable:", window.firebaseInitError);
+  }
 })();
 </script>
 </body>
