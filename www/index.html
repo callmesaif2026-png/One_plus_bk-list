@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f7f9fc">
-<title>Bkash Personal List V32 Live Sync</title>
+<title>Bkash Personal List V34 Live Sync</title>
 <style>
 :root{
   --bg:#eef4f7;--card:#fff;--soft:#f4f8fb;--border:#d7e2e9;
@@ -45,6 +45,9 @@ a{text-decoration:none}
 .pinned-panel{margin-bottom:9px;padding:9px;border:1px solid #f1bfd3;border-radius:15px;background:linear-gradient(135deg,#fff,#fff7fb);box-shadow:var(--shadow)}
 .pinned-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
 .pinned-head h2{margin:0;font-size:15px;color:var(--text)}
+.pinned-actions{display:flex;align-items:center;gap:6px}
+.pinned-copy-btn{border:0;border-radius:9px;padding:8px 10px;background:linear-gradient(135deg,#2f7f7a,#56a7a0);color:#fff;font-size:11px;font-weight:900;box-shadow:0 10px 22px rgba(47,127,122,.20)}
+.pinned-copy-btn:active{transform:scale(.97)}
 .bulk-pin-btn{border:0;border-radius:9px;padding:8px 10px;background:var(--pink);color:#fff;font-size:11px;font-weight:900}
 .pinned-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:7px}
 .pin-sum{padding:7px 5px;border-radius:9px;background:#fff;border:1px solid #f0d7e1;text-align:center}
@@ -781,7 +784,10 @@ try{
   <section id="pinnedPanel" class="pinned-panel hidden">
     <div class="pinned-head">
       <h2>★ Saved Balance</h2>
-      <button id="bulkPinBtn" class="bulk-pin-btn" type="button">+ Add Number</button>
+      <div class="pinned-actions">
+        <button id="copyPinnedBtn" class="pinned-copy-btn" type="button">All Copy</button>
+        <button id="bulkPinBtn" class="bulk-pin-btn" type="button">+ Add</button>
+      </div>
     </div>
     <div class="pinned-summary">
       <div class="pin-sum"><span>মোট Main</span><strong id="pinTotalMain">৳0</strong></div>
@@ -1438,6 +1444,31 @@ try{
     close("pinAmountModal");
     render();
     toast("Amount সেভ হয়েছে")
+  };
+
+  byId("copyPinnedBtn").onclick=function(){
+    var phones=Object.keys(balanceData.accounts||{}).filter(function(number){
+      var a=account(number);
+      return a.pinned && remaining(number)>0;
+    });
+
+    phones.sort(function(a,b){
+      var aa=account(a),bb=account(b);
+      var ao=Number.isFinite(aa.pinOrder)?aa.pinOrder:999999;
+      var bo=Number.isFinite(bb.pinOrder)?bb.pinOrder:999999;
+      return ao-bo;
+    });
+
+    if(!phones.length){
+      toast("কপি করার মতো Amount নেই");
+      return;
+    }
+
+    var text=phones.map(function(number){
+      return number+"  ✅\n"+formatMoney(remaining(number))+" Tk";
+    }).join("\n\n");
+
+    copyText(text,"Pin করা নাম্বার ও Amount কপি হয়েছে");
   };
 
   byId("bulkPinBtn").onclick=function(){byId("bulkPinText").value="";byId("bulkPinModal").classList.remove("hidden")};
