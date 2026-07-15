@@ -30,7 +30,7 @@ jobs:
 
       - name: Setup Capacitor
         run: |
-          npx cap init "Bk SaiF List" "com.bklist.app" --web-dir=www
+          npx cap init "Bk SaiF List" "com.bklistsaifown.app" --web-dir=www
 
 
       - name: Add Android Platform
