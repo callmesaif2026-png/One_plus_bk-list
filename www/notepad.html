@@ -16,7 +16,32 @@ html,body{
 }
 body{
   overflow:hidden;
-}.page{
+}
+.back-btn{
+  position:fixed;
+  top:12px;
+  left:12px;
+  z-index:1000;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,.96);
+  color:#111;
+  font-size:26px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.16);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.back-btn:active{
+  transform:scale(.94);
+  background:#f1f1f1;
+}
+.page{
   height:100vh;
   overflow:auto;
   background-color:#fff;
@@ -27,7 +52,7 @@ body{
 }
 #editor{
   min-height:calc(100vh + 500px);
-  padding:22px 20px 120px;
+  padding:68px 20px 120px;
   outline:none;
   font-size:20px;
   font-weight:700;
@@ -54,11 +79,15 @@ body{
   opacity:0;
   transition:.2s ease;
   pointer-events:none;
+  z-index:1000;
 }
 .save-status.show{opacity:1}
 </style>
 </head>
 <body>
+
+<button type="button" id="backBtn" class="back-btn" aria-label="Main App-এ ফিরে যান">‹</button>
+
 <div class="page" id="page">
   <div id="editor" contenteditable="true" spellcheck="false"></div>
 </div>
@@ -70,10 +99,14 @@ body{
   "use strict";
 
   var KEY = "simple_notepad_v2";
+  var MAIN_APP_URL = "index.html";
+
   var editor = document.getElementById("editor");
   var page = document.getElementById("page");
   var status = document.getElementById("saveStatus");
+  var backBtn = document.getElementById("backBtn");
   var timer = null;
+  var isLeaving = false;
 
   function showSaved(){
     status.classList.add("show");
@@ -83,9 +116,18 @@ body{
     },900);
   }
 
-  function save(){
+  function save(showMessage){
     localStorage.setItem(KEY, editor.innerHTML);
-    showSaved();
+    if(showMessage !== false){
+      showSaved();
+    }
+  }
+
+  function goToMainApp(){
+    if(isLeaving) return;
+    isLeaving = true;
+    save(false);
+    window.location.replace(MAIN_APP_URL);
   }
 
   function placeCaretAtEnd(element){
@@ -101,10 +143,24 @@ body{
 
   editor.addEventListener("input", function(){
     clearTimeout(timer);
-    timer = setTimeout(save, 180);
+    timer = setTimeout(function(){
+      save(true);
+    },180);
   });
 
+  backBtn.addEventListener("click", function(){
+    goToMainApp();
+  });
 
+  try{
+    history.pushState({notepadOpen:true}, "", window.location.href);
+  }catch(error){
+    console.log("History state error:", error);
+  }
+
+  window.addEventListener("popstate", function(){
+    goToMainApp();
+  });
 
   page.addEventListener("click", function(e){
     if(e.target !== page) return;
@@ -121,14 +177,20 @@ body{
         line.innerHTML = "<br>";
         editor.appendChild(line);
       }
-      save();
+      save(true);
     }
 
     editor.focus();
     placeCaretAtEnd(editor);
   });
 
-  window.addEventListener("beforeunload", save);
+  window.addEventListener("beforeunload", function(){
+    save(false);
+  });
+
+  window.addEventListener("pagehide", function(){
+    save(false);
+  });
 })();
 </script>
 
