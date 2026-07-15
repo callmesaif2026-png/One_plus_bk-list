@@ -2069,32 +2069,6 @@ try{
   saveLocalOnly();
   render();
 
-  if(window.firebaseDB){
-    window.firebaseDB.ref(FIREBASE_PATH).on(
-      "value",
-      function(snapshot){
-        cloudReady=true;
-        var raw=snapshot.val();
-
-        if(typeof raw==="string"&&raw){
-          applyCloudPayload(raw);
-        }else{
-          window.firebaseDB.ref(FIREBASE_PATH).set(cloudPayload()).catch(function(error){
-            console.error("Initial Firebase save failed:",error);
-            toast("Cloud connect হয়নি, local mode চলছে");
-          });
-        }
-      },
-      function(error){
-        cloudReady=false;
-        console.error("Firebase read failed:",error);
-        toast("Offline mode");
-      }
-    );
-  }else{
-    cloudReady=false;
-    console.error("Firebase SDK unavailable:",window.firebaseInitError);
-  }
 })();
 </script>
 </body>
