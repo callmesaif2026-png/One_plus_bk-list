@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f9fc">
+<title>Bkash Personal List V35 Full Number Copy</title>
+<style>
+:root{
+  --bg:#eef4f7;--card:#fff;--soft:#f4f8fb;--border:#d7e2e9;
+  --text:#173145;--muted:#718594;--pink:#e81767;--pink2:#ff5594;
+  --green:#28b96b;--yellow:#e8b731;--red:#ef5362;--blue:#2374b7;
+  --shadow:0 8px 22px rgba(40,76,98,.11)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#f9fcfe,var(--bg));color:var(--text);font-family:Arial,sans-serif}
+button,input,textarea,a{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none}
+.hidden{display:none!important}
+.app{width:min(760px,100%);margin:auto;padding:10px 9px 90px}
+
+/* Header */
+.title-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:11px 12px;margin-bottom:10px;border-radius:15px;
+  background:linear-gradient(135deg,#d9125e,#ff5795);
+  box-shadow:0 10px 24px rgba(232,23,103,.24)
+}
+.menu-btn{width:39px;height:39px;border:1px solid rgba(255,255,255,.36);border-radius:11px;background:rgba(255,255,255,.14);color:#fff;font-size:22px;font-weight:900}
+.notepad-btn{padding:10px 14px;border:1px solid rgba(255,255,255,.38);border-radius:11px;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:800}
+
+/* Summary */
+.summary{display:grid;grid-template-columns:.76fr 1.18fr 1.18fr;gap:6px;margin-bottom:9px}
+.sum{min-width:0;min-height:91px;padding:9px 7px;border:1px solid var(--border);border-radius:14px;background:var(--card);box-shadow:var(--shadow);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sum span{display:block;margin-bottom:6px;color:var(--muted);font-size:10px}
+.sum strong{display:block;max-width:100%;color:var(--text);font-size:14px;line-height:1.15;white-space:nowrap;letter-spacing:-.3px}
+.donut{--fill:360deg;--donut-color:var(--green);width:70px;height:70px;position:relative;display:grid;place-items:center;border-radius:50%;background:conic-gradient(var(--donut-color) 0deg var(--fill),#e8eef2 var(--fill) 360deg);box-shadow:0 5px 14px rgba(34,67,88,.14)}
+.donut::before{content:"";position:absolute;inset:9px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1px #e4ebef}
+.donut-inner{position:relative;z-index:1;text-align:center;line-height:1}
+.donut-inner strong{font-size:19px;font-weight:900}
+
+/* Global pinned section */
+.pinned-panel{margin-bottom:9px;padding:9px;border:1px solid #f1bfd3;border-radius:15px;background:linear-gradient(135deg,#fff,#fff7fb);box-shadow:var(--shadow)}
+.pinned-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.pinned-head h2{margin:0;font-size:15px;color:var(--text)}
+.pinned-actions{display:flex;align-items:center;gap:6px}
+.pinned-copy-btn{border:1px solid #cfdde2;border-radius:9px;padding:8px 10px;background:#fff;color:var(--text);font-size:11px;font-weight:900}
+.pinned-copy-btn:active{transform:scale(.97)}
+.bulk-pin-btn{border:0;border-radius:9px;padding:8px 10px;background:var(--pink);color:#fff;font-size:11px;font-weight:900}
+.pinned-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:7px}
+.pin-sum{padding:7px 5px;border-radius:9px;background:#fff;border:1px solid #f0d7e1;text-align:center}
+.pin-sum span{display:block;color:var(--muted);font-size:8px;margin-bottom:3px}
+.pin-sum strong{font-size:11px}
+.pinned-list{display:grid;gap:6px}
+.pinned-item{padding:8px;border:1px solid #ecd6df;border-radius:11px;background:#fff}
+.pinned-top{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:7px}
+.pin-toggle{width:32px;height:32px;border:0;border-radius:9px;background:var(--pink);color:#fff;font-size:16px}
+.pinned-number{min-width:0}
+.pinned-number strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px;font-weight:900}
+.pinned-number small{display:block;margin-top:3px;color:var(--green);font-size:14px;font-weight:900}
+.quick-minus{display:grid;grid-template-columns:80px 36px;gap:5px}
+.quick-minus input{width:80px;height:34px;border:1px solid var(--border);border-radius:8px;padding:0 7px;background:#fff;color:var(--text);font-size:11px;font-weight:800;outline:none}
+.quick-minus input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,83,98,.1)}
+.minus-btn{width:36px;height:34px;border:0;border-radius:8px;background:var(--red);color:#fff;font-size:20px;font-weight:900}
+.deduction-row{display:flex;align-items:flex-start;gap:6px;margin-top:7px}
+.deduction-label{flex:0 0 auto;padding-top:3px;color:var(--muted);font-size:9px;font-weight:900}
+.deduction-list{display:flex;flex-wrap:wrap;gap:4px;min-width:0}
+.deduction-chip{padding:4px 6px;border-radius:999px;background:#fff0f2;color:#c83242;border:1px solid #ffd0d6;font-size:9px;font-weight:900}
+.no-deduction{color:var(--muted);font-size:9px}
+
+/* Blocks */
+.blocks{display:grid;gap:8px}
+.block{padding:9px;border:1px solid var(--border);border-radius:15px;background:var(--card);box-shadow:var(--shadow)}
+.block-top{display:flex;justify-content:space-between;align-items:center;gap:7px;margin-bottom:7px}
+.block-head-left{display:flex;align-items:center;gap:7px;min-width:0}
+.block-circle{width:48px;height:48px;flex:0 0 48px;border:2px solid var(--border);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;color:var(--text);line-height:1}
+.block-circle .serial{font-size:20px;font-weight:900}
+.block-circle .percent{margin-top:3px;font-size:8px;font-weight:900}
+.block-circle.green{border-color:var(--green);background:#e5f7ee;color:#13864a}
+.block-circle.yellow{border-color:var(--yellow);background:#fff5d6;color:#9a730e}
+.block-circle.red{border-color:var(--red);background:#ffe5e8;color:#c22d3c}
+.actions{display:flex;gap:4px;flex-wrap:nowrap}
+.action-btn{min-height:34px;border:1px solid var(--border);border-radius:10px;padding:7px 8px;background:var(--soft);color:var(--text);font-size:10px;font-weight:800}
+.action-btn.active{border-color:var(--pink);background:var(--pink);color:#fff}
+.action-btn.amount-active{border-color:var(--green);background:var(--green);color:#fff}
+.action-btn.edit{color:#1769aa;background:#eef6fc}
+.action-btn.delete{color:#d33f50;background:#fff1f3}
+.numbers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-bottom:7px}
+.number-row{display:block;min-width:0;padding:6px 7px;border:1px solid #e4ecf1;border-radius:9px;background:var(--soft)}
+.number-main{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:7px}
+.pin-small{width:30px;height:30px;border:1px solid var(--border);border-radius:8px;background:#fff;color:#657b8a;font-size:10px;font-weight:900}
+.phone{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-size:16px;font-weight:900;letter-spacing:.3px}
+.number-limits{display:grid;grid-template-columns:repeat(6,24px);gap:2px;margin-top:6px}
+.mini-day{width:24px;height:25px;padding:0;border:1px solid rgba(40,185,107,.36);border-radius:6px;background:rgba(40,185,107,.1);color:#16874c;font-size:8px;font-weight:800;line-height:1}
+.mini-day.used{border-color:rgba(239,83,98,.42);background:rgba(239,83,98,.14);color:#c42e3d}
+.mini-day small{display:block;margin-top:1px;font-size:6px}
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.day{min-width:0;padding:6px 1px 5px;border:1px solid rgba(40,185,107,.4);border-radius:8px;background:rgba(40,185,107,.1);color:#16874c;font-size:12px;font-weight:900;line-height:1}
+.day.partial{border-color:rgba(232,183,49,.52);background:rgba(232,183,49,.14);color:#98700e}
+.day.used{border-color:rgba(239,83,98,.46);background:rgba(239,83,98,.14);color:#c42e3d}
+.day small{display:block;margin-top:3px;font-size:8px}
+.empty{padding:28px 10px;border:1px solid var(--border);border-radius:14px;background:var(--card);color:var(--muted);text-align:center;box-shadow:var(--shadow)}
+.fab{position:fixed;right:16px;bottom:20px;width:55px;height:55px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff;font-size:31px;box-shadow:0 12px 28px rgba(232,23,103,.33)}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;padding:9px;background:rgba(24,44,58,.36);backdrop-filter:blur(3px)}
+.modal-box{width:100%;max-width:520px;max-height:92vh;overflow:auto;padding:14px;border:1px solid var(--border);border-radius:19px 19px 9px 9px;background:var(--card);box-shadow:0 22px 48px rgba(30,57,73,.22)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.modal-head h2{margin:0;font-size:18px}
+.close{width:37px;height:37px;border:0;border-radius:9px;background:var(--soft);color:var(--text)}
+.label{display:block;margin:9px 0 5px;color:var(--muted);font-size:11px}
+.input,.textarea{width:100%;border:1px solid var(--border);border-radius:9px;outline:none;background:#fbfdff;color:var(--text)}
+.input{height:41px;padding:0 10px}
+.textarea{min-height:190px;padding:10px;resize:vertical;line-height:1.5}
+.input:focus,.textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(232,23,103,.09)}
+.inputs{display:grid;gap:6px}
+.input-line{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:6px}
+.idx{height:34px;border-radius:8px;display:grid;place-items:center;background:var(--soft);color:var(--pink);font-size:12px;font-weight:900}
+.full-btn,.back-btn{width:100%;margin-top:10px;padding:11px;border-radius:9px;font-weight:900}
+.full-btn{border:0;background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff}
+.back-btn{border:1px solid var(--border);background:var(--soft);color:var(--text)}
+.help{margin:0 0 7px;color:var(--muted);font-size:10px;line-height:1.5}
+.toast{position:fixed;left:50%;bottom:22px;z-index:40;transform:translateX(-50%);padding:9px 13px;border-radius:9px;background:#173145;color:#fff;font-size:12px;font-weight:800;white-space:nowrap}
+
+@media(max-width:420px){
+  .summary{grid-template-columns:.72fr 1.2fr 1.2fr;gap:5px}
+  .sum{min-height:84px;padding:7px 5px}.sum span{font-size:9px}.sum strong{font-size:12px}
+  .donut{width:64px;height:64px}.donut::before{inset:8px}
+  .action-btn{padding:7px 6px;font-size:9px}.phone{font-size:15px}
+  .number-limits{grid-template-columns:repeat(6,22px)}.mini-day{width:22px;height:23px}
+  .quick-minus{grid-template-columns:70px 34px}.quick-minus input{width:70px}.minus-btn{width:34px}
+}
+@media(max-width:350px){.numbers{grid-template-columns:1fr}.pinned-summary{grid-template-columns:1fr}}
+</style>
+
+<style>
+/* ===== V22 compact pinned panel ===== */
+.pinned-panel{
+  padding:8px!important;
+}
+
+.pinned-head{
+  margin-bottom:6px!important;
+}
+
+.pinned-summary{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:5px!important;
+  margin-bottom:6px!important;
+}
+
+.pin-sum{
+  min-width:0!important;
+  padding:7px 5px!important;
+}
+
+.pin-sum span{
+  font-size:8px!important;
+}
+
+.pin-sum strong{
+  font-size:11px!important;
+  white-space:nowrap!important;
+}
+
+.pin-toggle{
+  width:30px!important;
+  height:30px!important;
+  border:0!important;
+  background:transparent!important;
+  color:var(--pink)!important;
+  font-size:18px!important;
+  box-shadow:none!important;
+}
+
+.pinned-item{
+  padding:7px!important;
+}
+
+.pinned-top{
+  grid-template-columns:auto minmax(0,1fr) auto!important;
+  gap:6px!important;
+}
+
+.pinned-number strong{
+  font-size:15px!important;
+}
+
+.pinned-number small{
+  font-size:13px!important;
+}
+
+@media(max-width:420px){
+  .pinned-summary{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+
+  .pin-sum strong{
+    font-size:10px!important;
+  }
+}
+</style>
+
+<style>
+/* ===== V23 stable pinned order + stronger visuals ===== */
+.pinned-item{scroll-margin-top:12px}
+.pin-toggle{color:#c40058!important;font-size:19px!important}
+.pinned-number small{font-size:16px!important;font-weight:900!important;color:#149a55!important}
+.quick-minus input{font-size:13px!important;font-weight:900!important}
+.minus-btn{background:#d92f43!important;font-size:22px!important;font-weight:900!important}
+.deduction-chip{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:2px!important;padding:5px 7px!important;background:#ffe8ec!important;border-color:#f6b7c0!important;color:#b71f32!important;font-size:11px!important;font-weight:900!important;line-height:1.05!important}
+.deduction-chip small{color:#7b8993!important;font-size:8px!important;font-weight:800!important}
+.deduction-label{font-size:10px!important}
+@media(max-width:420px){.pinned-number small{font-size:15px!important}.deduction-chip{font-size:10px!important}}
+</style>
+
+<style>
+:root{--shadow-soft:0 6px 18px rgba(35,70,92,.08);--shadow-card:0 8px 22px rgba(35,70,92,.10)}
+.numbers{grid-template-columns:1fr!important;gap:6px!important}
+.block,.pinned-panel,.pinned-item,.sum{box-shadow:var(--shadow-card)!important}
+.block{border-radius:16px!important;padding:10px!important}
+.number-row{border-radius:11px!important;background:#f7fafc!important;padding:8px 9px!important}
+.phone{font-size:16px!important;font-weight:900!important;letter-spacing:.25px!important}
+.pinned-panel{border:1px solid #eadbe2!important;background:#fff!important}
+.pinned-head h2{font-size:16px!important}
+.pinned-item{border:1px solid #e5e9ed!important;border-radius:12px!important;background:#fff!important}
+.pinned-number strong{font-size:16px!important}
+.pinned-number small{font-size:16px!important;color:#129652!important}
+.deduction-label{display:none!important}
+.deduction-row{margin-top:8px!important}
+.deduction-list{gap:5px!important}
+.deduction-chip{cursor:pointer!important;user-select:none!important;-webkit-user-select:none!important;touch-action:none!important;border-radius:10px!important;padding:6px 8px!important;background:#fff1f3!important;border:1px solid #f5c6cd!important;color:#b42334!important;box-shadow:0 2px 5px rgba(180,35,52,.06)!important}
+.deduction-chip.holding{animation:holdPulse 1s linear infinite;outline:2px solid rgba(232,23,103,.20)}
+@keyframes holdPulse{0%{transform:scale(1)}50%{transform:scale(.96)}100%{transform:scale(1)}}
+.title-bar{position:relative}
+.menu-dropdown{position:absolute;top:58px;left:0;z-index:50;width:190px;padding:10px;border:1px solid var(--border);border-radius:12px;background:#fff;box-shadow:0 16px 36px rgba(32,58,74,.18)}
+.menu-dropdown h3{margin:0 0 8px;color:var(--text);font-size:12px}
+.font-options{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.font-option{border:1px solid var(--border);border-radius:9px;padding:9px 8px;background:var(--soft);color:var(--text);font-size:11px;font-weight:900}
+.font-option.active{border-color:var(--pink);background:var(--pink);color:#fff}
+body.font-medium .phone,body.font-medium .pinned-number strong{font-size:16px!important}
+body.font-high .phone,body.font-high .pinned-number strong{font-size:19px!important}
+body.font-high .pinned-number small{font-size:18px!important}
+body.font-high .action-btn{font-size:11px!important}
+.action-btn,.bulk-pin-btn,.full-btn,.back-btn{box-shadow:var(--shadow-soft)!important}
+.action-btn{background:#f8fafc!important}
+.action-btn.active{background:var(--pink)!important}
+.action-btn.amount-active{background:var(--green)!important}
+.action-btn.delete{background:#fff4f5!important}
+.action-btn.edit{background:#f1f7fc!important}
+@media(max-width:420px){.numbers{grid-template-columns:1fr!important}.phone{font-size:15px!important}body.font-high .phone,body.font-high .pinned-number strong{font-size:18px!important}}
+</style>
+
+<style>
+:root{--pink:#2f7f7a!important;--pink2:#56a7a0!important;--green:#2f9d74!important;--yellow:#d6a545!important;--red:#d84c5a!important;--blue:#4f7fa8!important}
+.title-bar{background:linear-gradient(135deg,#2f666b,#4f8e91)!important;box-shadow:0 10px 24px rgba(47,102,107,.20)!important}
+.bulk-pin-btn,.full-btn,.fab{background:linear-gradient(135deg,#2f7f7a,#56a7a0)!important;box-shadow:0 10px 22px rgba(47,127,122,.20)!important}
+.pin-toggle{color:#466b72!important;background:transparent!important;border:0!important;font-size:18px!important}
+.pin-small{color:#466b72!important;background:#eef5f5!important;border-color:#cfe0df!important}
+.pin-small.active{color:#fff!important;background:#5e8589!important;border-color:#5e8589!important}
+.pinned-panel{border-color:#d7e5e4!important;background:linear-gradient(180deg,#fbfefe,#f4f9f8)!important}
+.pinned-head h2{color:#274a4e!important}
+.pinned-item{border-color:#dfe9e8!important;background:#fff!important}
+.deduction-chip{background:#fff3f4!important;border-color:#f0c7cc!important;color:#b63443!important}
+.minus-btn{background:#d84c5a!important}
+.action-btn.delete{color:#5f6f7a!important;background:#f1f4f6!important;border-color:#d8e0e5!important}
+.action-btn.delete:active{background:#e6ebee!important}
+.action-btn.active,.font-option.active{background:#2f7f7a!important;border-color:#2f7f7a!important;color:#fff!important}
+.action-btn.amount-active{background:#2f9d74!important;border-color:#2f9d74!important}
+.menu-btn,.notepad-btn{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.28)!important}
+.input:focus,.textarea:focus,.quick-minus input:focus{border-color:#4f8e91!important;box-shadow:0 0 0 3px rgba(79,142,145,.12)!important}
+.pinned-number small,.main-amount{color:#2f8d68!important}
+</style>
+
+<style>
+:root{--nav-light-1:#dfeeed!important;--nav-light-2:#cfe4e2!important;--nav-text:#2f5f63!important;--star:#5e8e91!important}
+.title-bar{background:linear-gradient(135deg,var(--nav-light-1),var(--nav-light-2))!important;box-shadow:0 8px 20px rgba(75,118,121,.14)!important;border:1px solid #c8dedd!important}
+.menu-btn,.notepad-btn{color:var(--nav-text)!important;background:rgba(255,255,255,.58)!important;border-color:rgba(80,125,128,.18)!important;font-weight:900!important}
+.pin-toggle{color:var(--star)!important}
+.pin-small{color:var(--star)!important;background:#edf5f4!important;border-color:#cfe0df!important}
+.pin-small.active{background:#7ea7a9!important;border-color:#7ea7a9!important}
+.phone,.pinned-number strong{color:#102f42!important;opacity:1!important;font-weight:900!important}
+.pinned-number small,.main-amount,.pin-sum strong,.sum strong{opacity:1!important;font-weight:900!important}
+.pinned-number small,.main-amount{color:#1f8a63!important}
+.copy-amount{cursor:pointer!important;user-select:none!important;-webkit-user-select:none!important}
+.copy-amount:active{transform:scale(.98)}
+.pinned-panel{padding:7px!important}
+.pinned-head{margin-bottom:5px!important}
+.pinned-list{gap:5px!important}
+.pinned-item{padding:6px 7px!important;border-radius:10px!important}
+.pinned-top{gap:5px!important}
+.pinned-number strong{font-size:15px!important}
+.pinned-number small{margin-top:2px!important;font-size:14px!important}
+.quick-minus{grid-template-columns:72px 33px!important;gap:4px!important}
+.quick-minus input{width:72px!important;height:32px!important;padding:0 6px!important;font-size:11px!important}
+.minus-btn{width:33px!important;height:32px!important;font-size:19px!important}
+.deduction-row{margin-top:5px!important}
+.deduction-list{gap:3px!important}
+.deduction-chip{padding:3px 6px!important;min-height:24px!important;border-radius:8px!important;font-size:10px!important;line-height:1!important}
+.deduction-chip small{margin-top:1px!important;font-size:7px!important}
+.block{padding:8px!important}
+.number-row{padding:6px 8px!important}
+.numbers{gap:5px!important}
+.days{gap:4px!important}
+.day{padding:5px 1px 4px!important}
+@media(max-width:420px){.pinned-number strong{font-size:14px!important}.pinned-number small{font-size:13px!important}.quick-minus{grid-template-columns:66px 32px!important}.quick-minus input{width:66px!important}.minus-btn{width:32px!important}}
+</style>
+
+<style>
+:root{--nav-light-1:#b9d9d6!important;--nav-light-2:#d7ebe8!important;--nav-text:#214f53!important}
+.title-bar{background:linear-gradient(135deg,var(--nav-light-1),var(--nav-light-2))!important;border-color:#aecfcd!important;box-shadow:0 8px 22px rgba(53,102,105,.16)!important}
+.menu-btn,.notepad-btn{color:var(--nav-text)!important;background:rgba(255,255,255,.62)!important;border-color:rgba(43,91,94,.18)!important}
+.pinned-number small.copy-amount{font-size:17px!important;font-weight:900!important}
+.pin-sum strong.copy-amount,.sum strong.copy-amount{font-size:16px!important;font-weight:900!important}
+.copy-last3{cursor:pointer!important;user-select:none!important;-webkit-user-select:none!important}
+.copy-last3:active{transform:scale(.99)}
+.pinned-item.active-work{border-color:#6da7a2!important;background:linear-gradient(135deg,#f4fbfa,#eaf6f4)!important;box-shadow:0 0 0 2px rgba(76,133,128,.12),0 8px 20px rgba(46,92,95,.12)!important}
+.pinned-item.active-work::before{content:"Active";display:inline-block;margin-bottom:5px;padding:3px 7px;border-radius:999px;background:#4f8f8a;color:#fff;font-size:8px;font-weight:900;letter-spacing:.3px}
+</style>
+
+<style>
+.pinned-item.active-work{border:2px solid #5fa89f!important;background:#f6fbfa!important;box-shadow:0 0 0 2px rgba(95,168,159,.10),0 8px 18px rgba(46,92,95,.08)!important}
+.pinned-item.active-work::before{content:none!important;display:none!important}
+.quick-minus input{font-size:16px!important;font-weight:900!important;color:#173145!important}
+.quick-minus input::placeholder{font-size:14px!important;font-weight:800!important;color:#7a8790!important;opacity:1!important}
+@media(max-width:420px){.quick-minus input{font-size:15px!important}.quick-minus input::placeholder{font-size:13px!important}}
+</style>
+
+<style>
+:root{--agent-cyan-1:#19afc4!important;--agent-cyan-2:#18a9bf!important;--agent-cyan-3:#22b8cb!important}
+.title-bar{background:linear-gradient(135deg,var(--agent-cyan-1) 0%,var(--agent-cyan-2) 55%,var(--agent-cyan-3) 100%)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:0 10px 24px rgba(24,169,191,.22)!important}
+.menu-btn,.notepad-btn{color:#ffffff!important;background:rgba(255,255,255,.16)!important;border-color:rgba(255,255,255,.34)!important}
+.menu-btn:active,.notepad-btn:active{background:rgba(255,255,255,.24)!important}
+.pinned-item.active-work{border:1px solid #dfe9e8!important;border-left:4px solid #2f9c8d!important;background:#ffffff!important;box-shadow:0 8px 18px rgba(46,92,95,.06)!important}
+.pinned-item.active-work::before{content:none!important;display:none!important}
+</style>
+
+<style>
+:root{--agent-cyan-1:#079bb2!important;--agent-cyan-2:#0aa8bd!important;--agent-cyan-3:#14b3c5!important}
+.title-bar{background:linear-gradient(135deg,var(--agent-cyan-1) 0%,var(--agent-cyan-2) 55%,var(--agent-cyan-3) 100%)!important;box-shadow:0 10px 24px rgba(7,155,178,.26)!important}
+.deduction-list:empty,.deduction-row:has(.deduction-list:empty){display:none!important}
+.pinned-number small.copy-amount{font-size:15px!important}
+.pin-sum strong.copy-amount,.sum strong.copy-amount{font-size:14px!important}
+body.font-low .phone,body.font-low .pinned-number strong{font-size:14px!important}
+body.font-low .pinned-number small{font-size:13px!important}
+body.font-low .action-btn{font-size:9px!important}
+body.font-medium .phone,body.font-medium .pinned-number strong{font-size:16px!important}
+body.font-medium .pinned-number small{font-size:15px!important}
+body.font-high .phone,body.font-high .pinned-number strong{font-size:19px!important}
+body.font-high .pinned-number small{font-size:17px!important}
+body.font-high .action-btn{font-size:11px!important}
+.font-options{grid-template-columns:repeat(3,1fr)!important}
+@media(max-width:420px){body.font-low .phone,body.font-low .pinned-number strong{font-size:13px!important}body.font-medium .phone,body.font-medium .pinned-number strong{font-size:15px!important}body.font-high .phone,body.font-high .pinned-number strong{font-size:18px!important}}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script>
+window.firebaseDB=null;
+window.firebaseInitError=null;
+try{
+  var firebaseConfig={
+    apiKey:"AIzaSyArqkSz90owhkBWOiVWWfPyH5qaL95J9ko",
+    authDomain:"bk-list-af139.firebaseapp.com",
+    databaseURL:"https://bk-list-af139-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId:"bk-list-af139",
+    storageBucket:"bk-list-af139.firebasestorage.app",
+    messagingSenderId:"408830466247",
+    appId:"1:408830466247:web:883d2ec5d557ddcfd306e2",
+    measurementId:"G-QRWT17MSVG"
+  };
+  if(window.firebase&&!firebase.apps.length){firebase.initializeApp(firebaseConfig)}
+  if(window.firebase){window.firebaseDB=firebase.database()}
+}catch(error){
+  window.firebaseInitError=error;
+  console.error("Firebase initialization failed:",error);
+}
+</script>
+
+<style>
+.reset-limit-btn{border:0;border-radius:9px;padding:8px 10px;background:#d84c5a;color:#fff;font-size:11px;font-weight:900;box-shadow:0 8px 18px rgba(216,76,90,.18)}
+.reset-limit-btn:active{transform:scale(.97)}
+.quick-minus input::placeholder{font-size:11px!important;font-weight:700!important}
+.phone.limit-warning{color:#d23b4b!important}
+.number-row.limit-warning-row{border-color:#ef9ca6!important;background:#fff3f4!important}
+@media(max-width:420px){.quick-minus input::placeholder{font-size:10px!important}.pinned-actions{gap:4px!important}.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn{padding:7px 7px!important;font-size:9px!important}}
+</style>
+
+<style>
+.pinned-actions{margin-left:auto!important}
+.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn{border:0!important;background:linear-gradient(135deg,#2f7f7a,#56a7a0)!important;color:#fff!important;box-shadow:0 8px 18px rgba(47,127,122,.18)!important}
+.all-copy-btn{padding:9px 12px!important;font-size:12px!important;font-weight:950!important;margin-left:auto!important}
+.number-main{grid-template-columns:auto minmax(0,1fr) auto!important}
+.limit-mini{min-width:86px;padding-left:7px;border-left:1px solid #d8e3e8;text-align:left;line-height:1.15}
+.limit-mini span{display:block;white-space:nowrap;color:#657781;font-size:8px;font-weight:900}
+.limit-mini .used{margin-top:3px;color:#c23b49}
+.number-row.limit-warning-row .limit-mini .used,.number-row.limit-warning-row .phone{color:#d23b4b!important}
+.quick-minus input::placeholder{font-size:10px!important;font-weight:800!important;color:#7b8992!important;opacity:1!important}
+.pinned-item.limit-warning-card{border-color:#ef9ca6!important;background:#fff4f5!important}
+.pinned-item.limit-warning-card .pinned-number strong{color:#d23b4b!important}
+@media(max-width:420px){.pinned-actions{gap:4px!important}.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn{padding:7px 7px!important;font-size:9px!important}.all-copy-btn{padding:8px 9px!important;font-size:10px!important}.limit-mini{min-width:76px;padding-left:5px}.limit-mini span{font-size:7px}}
+</style>
+
+<style>
+.pin-sum{border:1px solid #6bb7a8!important}
+.pin-sum span{font-size:12px!important;font-weight:800!important}
+</style>
+
+<style>
+.pinned-summary{gap:4px!important;margin-bottom:5px!important}
+.pin-sum{padding:4px 4px!important;min-height:44px!important}
+.pin-sum span{margin-bottom:2px!important;line-height:1.05!important}
+.pin-sum strong{line-height:1.05!important}
+.limit-mini .used,.number-limit-info .used,.number-row.limit-warning-row .limit-mini .used,.number-row.limit-warning-row .number-limit-info .used{color:#2f9d74!important}
+@media(max-width:420px){.pin-sum{padding:3px 3px!important;min-height:40px!important}}
+</style>
+
+<style>
+.pin-sum span{font-size:11px!important}
+.pin-sum strong{font-size:12px!important}
+.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn{min-height:38px!important;padding-bottom:3px!important}
+</style>
+
+<style>
+.pin-sum{min-height:42px!important}
+.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn{padding-bottom:5px!important}
+</style>
+
+<style>
+.pinned-head{align-items:center!important}
+.pinned-actions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:5px!important;margin-left:auto!important}
+.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn{height:35px!important;min-height:35px!important;padding:0 9px 5px!important;border:0!important;border-radius:9px!important;background:linear-gradient(135deg,#2f7f7a,#56a7a0)!important;color:#fff!important;font-size:10px!important;font-weight:900!important;line-height:1!important;box-shadow:0 7px 16px rgba(47,127,122,.16)!important}
+.all-copy-btn{height:35px!important;min-height:35px!important;padding:0 10px 5px!important;font-size:10px!important;font-weight:950!important}
+.pin-sum{min-height:40px!important;padding:2px 4px!important}
+@media(max-width:420px){.pinned-actions{gap:4px!important}.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn,.all-copy-btn{height:34px!important;min-height:34px!important;padding:0 7px 5px!important;font-size:9px!important}.pin-sum{min-height:38px!important;padding:2px 3px!important}}
+</style>
+
+<style>
+.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn,.all-copy-btn{height:33px!important;min-height:33px!important;padding:0 8px 4px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;line-height:1!important}
+@media(max-width:420px){.pinned-copy-btn,.reset-limit-btn,.bulk-pin-btn,.all-copy-btn{height:32px!important;min-height:32px!important;padding:0 7px 4px!important}}
+</style>
+
+<style>
+.input-line{grid-template-columns:34px minmax(0,1fr) 86px!important}
+.note-input{width:100%;min-width:0;height:41px;padding:0 7px;border:1px solid var(--border);border-radius:9px;outline:none;background:#fbfdff;color:var(--text);font-size:11px;font-weight:800}
+.note-input:focus{border-color:#4f8e91;box-shadow:0 0 0 3px rgba(79,142,145,.12)}
+.phone-wrap{min-width:0}
+.phone-note{display:block;margin-top:2px;color:#70828d;font-size:8px;font-weight:800;line-height:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:420px){.input-line{grid-template-columns:30px minmax(0,1fr) 72px!important;gap:4px!important}.note-input{padding:0 5px;font-size:9px}.phone-note{font-size:7px}}
+</style>
+
+<style>
+.pin-control-stack{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.quick-add-btn{width:24px;height:24px;border:1px solid #bcd8d5;border-radius:7px;background:#eef7f5;color:#2f7f7a;font-size:16px;font-weight:900;line-height:1;display:grid;place-items:center;padding:0}
+.quick-add-btn:active{transform:scale(.95)}
+.pin-toggle{width:24px!important;height:24px!important;font-size:16px!important;line-height:1!important}
+.pinned-number-line,.phone-line{display:flex;align-items:center;gap:5px;min-width:0}
+.inline-note{flex:0 1 auto;max-width:86px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#6f808a;font-size:8px;font-weight:800;line-height:1}
+.phone-wrap .phone-note{display:none!important}
+.deduction-row{width:100%}
+.deduction-list{width:100%;justify-content:flex-start!important;direction:ltr!important}
+@media(max-width:420px){.quick-add-btn,.pin-toggle{width:22px!important;height:22px!important}.quick-add-btn{font-size:15px}.inline-note{max-width:68px;font-size:7px}}
+</style>
+
+<style>
+.quick-add-btn{width:24px!important;height:24px!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#5e8e91!important;font-size:16px!important;font-weight:900!important;line-height:1!important;display:grid!important;place-items:center!important}
+.quick-add-btn:active{transform:scale(.96)!important;background:transparent!important}
+.pin-toggle{width:24px!important;height:24px!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#5e8e91!important;font-size:16px!important;font-weight:900!important;line-height:1!important;display:grid!important;place-items:center!important}
+.pin-control-stack{gap:2px!important}
+@media(max-width:420px){.quick-add-btn,.pin-toggle{width:22px!important;height:22px!important;font-size:15px!important}}
+</style>
+
+<style>
+.chat-fab{position:fixed;right:19px;bottom:84px;z-index:25;width:49px;height:49px;border:0;border-radius:50%;background:linear-gradient(135deg,#2f7f7a,#56a7a0);color:#fff;font-size:22px;display:grid;place-items:center;box-shadow:0 11px 25px rgba(47,127,122,.28)}
+.chat-badge{position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;padding:0 5px;border:2px solid #fff;border-radius:999px;background:#d84c5a;color:#fff;font-size:10px;font-weight:900;display:grid;place-items:center}.chat-badge.hidden{display:none!important}
+.chat-box{width:100%;max-width:560px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;padding:0!important}.chat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 13px;border-bottom:1px solid var(--border);background:#fff}.chat-head h2{margin:0;font-size:17px}.chat-head small{display:block;margin-top:2px;color:var(--muted);font-size:9px}.chat-toolbar{display:flex;gap:5px}.chat-tool{height:32px;border:1px solid #cfe0df;border-radius:8px;padding:0 8px;background:#eef7f5;color:#2f6e69;font-size:9px;font-weight:900}
+.chat-compose{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr) auto;gap:6px;padding:9px;border-bottom:1px solid var(--border);background:#f7fafb}.chat-compose.hidden{display:none!important}.chat-compose input{min-width:0;height:38px;border:1px solid var(--border);border-radius:9px;padding:0 9px;outline:none;background:#fff;font-size:12px;font-weight:800}.chat-send{height:38px;border:0;border-radius:9px;padding:0 12px;background:linear-gradient(135deg,#2f7f7a,#56a7a0);color:#fff;font-size:11px;font-weight:900}
+.chat-list{flex:1;min-height:220px;overflow:auto;display:grid;align-content:start;gap:7px;padding:9px;background:#eef4f7}.chat-empty{padding:30px 12px;color:var(--muted);text-align:center;font-size:12px}.chat-item{border:1px solid #dbe5e9;border-left:4px solid #4f9a91;border-radius:11px;padding:9px;background:#fff;box-shadow:0 5px 14px rgba(35,70,92,.07)}.chat-item.claimed{opacity:.7;border-left-color:#9aa8b0}.chat-number{font-size:16px;font-weight:900;color:#153348}.chat-amount{margin-top:3px;color:#228b63;font-size:15px;font-weight:900}.chat-meta{display:flex;justify-content:space-between;gap:8px;margin-top:5px;color:#7a8a94;font-size:8px}.chat-actions{display:flex;gap:5px;margin-top:7px}.chat-action{min-height:31px;border:1px solid #cfe0df;border-radius:8px;padding:0 9px;background:#eef7f5;color:#2f6e69;font-size:9px;font-weight:900}.chat-action.primary{border:0;background:#2f7f7a;color:#fff}.chat-action.delete{border-color:#e2c9cd;background:#fff4f5;color:#bd3d4b}.chat-claimed{margin-top:7px;padding:6px 8px;border-radius:8px;background:#f1f4f6;color:#667681;font-size:9px;font-weight:800}.role-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.role-btn{min-height:44px;border:1px solid #cfe0df;border-radius:10px;background:#eef7f5;color:#2f6e69;font-weight:900}.role-btn.admin{border:0;background:linear-gradient(135deg,#2f7f7a,#56a7a0);color:#fff}
+@media(max-width:420px){.chat-fab{right:18px;bottom:82px;width:47px;height:47px}.chat-compose{grid-template-columns:1fr 94px}.chat-compose .chat-phone{grid-column:1/-1}}
+</style>
+
+<style>
+.chat-box{height:min(92vh,760px)!important;max-height:92vh!important;border-radius:18px 18px 9px 9px!important}
+.chat-head{background:linear-gradient(135deg,#1f716d,#39958e)!important;color:#fff!important;border-bottom:0!important}
+.chat-head h2{color:#fff!important}
+.chat-head small{color:rgba(255,255,255,.8)!important}
+.chat-head .close,.chat-head .chat-tool{border-color:rgba(255,255,255,.25)!important;background:rgba(255,255,255,.14)!important;color:#fff!important}
+.chat-list{background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.36),transparent 24%),linear-gradient(180deg,#e8f1ef,#ddeae7)!important;padding:10px!important;gap:6px!important}
+.chat-row{display:flex;width:100%}
+.chat-row.mine{justify-content:flex-end}
+.chat-row.other{justify-content:flex-start}
+.chat-bubble{max-width:82%;padding:8px 10px 6px;border-radius:12px;box-shadow:0 2px 6px rgba(34,68,82,.10);word-break:break-word;position:relative}
+.chat-row.mine .chat-bubble{background:#d9fdd3;border-bottom-right-radius:3px}
+.chat-row.other .chat-bubble{background:#fff;border-bottom-left-radius:3px}
+.chat-sender{margin-bottom:3px;color:#287f77;font-size:9px;font-weight:900}
+.chat-text{color:#173145;font-size:13px;line-height:1.35;white-space:pre-wrap}
+.chat-number-card{min-width:190px}
+.chat-number-card .chat-text{font-size:16px;font-weight:900}
+.chat-number-card .chat-money{margin-top:3px;color:#1e8c62;font-size:15px;font-weight:900}
+.chat-bubble-meta{display:flex;justify-content:flex-end;gap:5px;margin-top:4px;color:#7a8b94;font-size:7px}
+.chat-bubble-actions{display:flex;gap:5px;margin-top:7px}
+.chat-mini-btn{min-height:28px;border:1px solid #bedbd5;border-radius:7px;padding:0 8px;background:#edf8f5;color:#276f68;font-size:8px;font-weight:900}
+.chat-mini-btn.take{border:0;background:#2f7f7a;color:#fff}
+.chat-mini-btn.delete{border-color:#e6c8cd;background:#fff4f5;color:#bd3d4b}
+.chat-taken{margin-top:6px;padding:5px 7px;border-radius:7px;background:rgba(102,118,128,.1);color:#667681;font-size:8px;font-weight:800}
+.wa-compose{flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px;padding:8px;background:#f0f3f4;border-top:1px solid #d4dfe3}
+.wa-compose textarea{width:100%;min-height:42px;max-height:110px;resize:none;overflow:auto;border:1px solid #d2dee3;border-radius:21px;padding:11px 14px;outline:none;background:#fff;color:#173145;font-size:13px;line-height:1.35}
+.wa-compose textarea:focus{border-color:#6aa9a2;box-shadow:0 0 0 3px rgba(80,145,137,.1)}
+.wa-compose .chat-send{width:42px;height:42px;border-radius:50%!important;padding:0!important;display:grid;place-items:center;font-size:18px!important}
+@media(max-width:420px){.chat-bubble{max-width:88%}.chat-text{font-size:12px}}
+</style>
+
+<style>
+.chat-box{height:min(92vh,760px)!important;max-height:92vh!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}
+.chat-head{flex:0 0 auto!important}
+.chat-list{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;padding-bottom:14px!important}
+.wa-compose{flex:0 0 auto!important;position:sticky!important;bottom:0!important;z-index:4!important;padding:8px!important;background:#eef2f3!important;border-top:1px solid #d3dfe3!important;box-shadow:0 -4px 12px rgba(35,70,92,.06)!important}
+.wa-compose textarea{min-height:42px!important;max-height:110px!important;border-radius:22px!important}
+.wa-compose .chat-send{align-self:end!important}
+.chat-row:first-child{margin-top:auto}
+</style>
+
+<style>
+.chat-fab{right:10px!important;bottom:78px!important;width:40px!important;height:40px!important;font-size:18px!important;box-shadow:0 8px 18px rgba(47,127,122,.24)!important}
+#chatModal{padding:0!important;align-items:stretch!important;justify-content:stretch!important;background:#eef4f7!important;backdrop-filter:none!important}
+#chatModal .chat-box{width:100%!important;max-width:none!important;height:100dvh!important;max-height:100dvh!important;min-height:100dvh!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+#chatModal .chat-head{min-height:64px!important;padding:10px 12px!important;border-radius:0!important}
+#chatModal .chat-head h2{font-size:20px!important;font-weight:900!important}
+#chatModal .chat-list{flex:1 1 auto!important;min-height:0!important;padding:10px 8px 14px!important}
+#chatModal .wa-compose{padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important}
+#chatModal .wa-compose textarea{min-height:40px!important;max-height:96px!important;padding:10px 13px!important;font-size:13px!important}
+#chatModal .wa-compose .chat-send{width:40px!important;height:40px!important;font-size:17px!important}
+.chat-number-card{min-width:210px!important}
+.chat-number-card .chat-text{font-size:18px!important}
+.chat-number-card .chat-money{font-size:17px!important}
+.chat-bubble-actions{margin-top:8px!important}
+.chat-mini-btn{min-height:30px!important;font-size:9px!important}
+@media(max-width:420px){.chat-fab{right:8px!important;bottom:76px!important;width:38px!important;height:38px!important;font-size:17px!important}}
+</style>
+
+<style>
+.number-add-btn,.number-plus,.add-plus-icon,.plus-before-number{background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important;margin-top:3px !important;margin-right:2px !important;font-size:16px !important;line-height:1 !important;width:auto !important;height:auto !important;min-width:0 !important;min-height:0 !important;display:inline-flex;align-items:center;justify-content:center}
+</style>
+
+<style>
+.chat-number-card .chat-bubble-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:4px!important}
+.chat-number-card .chat-mini-btn{width:100%!important;padding:0 5px!important;white-space:nowrap!important}
+</style>
+
+<style>
+.chat-delete-all{background:#fff1f1!important;border-color:#f3bcbc!important;color:#c62828!important;padding:0 7px!important}
+.chat-number-card.claimed{background:linear-gradient(145deg,#ffe3e3,#ffd1d1)!important;border:1px solid #ef9a9a!important;border-radius:12px!important;padding:9px!important}
+.chat-number-card.claimed .chat-money{color:#c62828!important}
+.chat-number-card.claimed .chat-taken{background:#f8bcbc!important;color:#8b1515!important;border:1px solid #e99b9b!important}
+.chat-bubble-actions.sender-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.chat-bubble-actions.receiver-actions{display:block!important}
+.chat-bubble-actions.receiver-actions .chat-mini-btn{width:100%!important;min-height:34px!important}
+.chat-bubble-meta{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:4px!important}
+.chat-receipt{font-size:12px!important;line-height:1!important;font-weight:900!important;letter-spacing:-3px!important;padding-right:3px!important;color:#839197!important}
+.chat-receipt.read{color:#1d8fff!important}
+@media(max-width:390px){.chat-tool{padding:0 6px!important;font-size:8px!important}.chat-delete-all{padding:0 5px!important}}
+</style>
+
+
+<style>
+/* ===== V34 Manual Limit Edit ===== */
+.limit-edit-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 112px;
+  gap:7px;
+  align-items:center;
+  padding:7px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#f8fbfc;
+}
+.limit-edit-phone{
+  min-width:0;
+}
+.limit-edit-phone strong{
+  display:block;
+  color:var(--text);
+  font-size:14px;
+  font-weight:900;
+}
+.limit-edit-phone small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+.limit-edit-used{
+  width:112px;
+  height:38px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:0 8px;
+  background:#fff;
+  color:var(--text);
+  font-size:13px;
+  font-weight:900;
+  outline:none;
+}
+.limit-edit-used:focus{
+  border-color:#0aa8bd;
+  box-shadow:0 0 0 3px rgba(10,168,189,.10);
+}
+@media(max-width:390px){
+  .limit-edit-row{grid-template-columns:minmax(0,1fr) 98px}
+  .limit-edit-used{width:98px;font-size:12px}
+}
+</style>
+
+
+<style>
+.copy-full-number{
+  cursor:pointer!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+}
+.copy-full-number:active{
+  transform:scale(.99);
+}
+</style>
+
+</head>
+<body>
+<div class="app">
+  <div class="title-bar">
+    <button class="menu-btn" id="menuBtn" type="button">≡</button>
+    <div class="menu-dropdown hidden" id="menuDropdown">
+      <h3>Font Size</h3>
+      <div class="font-options">
+        <button type="button" class="font-option" data-font="low">Low</button>
+        <button type="button" class="font-option active" data-font="medium">Medium</button>
+        <button type="button" class="font-option" data-font="high">High</button>
+      </div>
+    </div>
+    <a class="notepad-btn" href="notepad.html">Notepad</a>
+  </div>
+
+  <div class="summary">
+    <div class="sum">
+      <div class="donut" id="usedDonut"><div class="donut-inner"><strong id="usedPercent">100%</strong></div></div>
+    </div>
+    <div class="sum"><span id="totalLimitLabel">নাম্বার 0 টি ➤ লিমিট</span><strong id="totalLimit">৳0</strong></div>
+    <div class="sum"><span>বাকি লিমিট</span><strong id="remainingLimit">৳0</strong></div>
+  </div>
+
+  <section id="pinnedPanel" class="pinned-panel hidden">
+    <div class="pinned-head">
+      <h2>★ Balance</h2>
+      <div class="pinned-actions">
+        <button id="resetLimitBtn" class="reset-limit-btn" type="button">↻&nbsp; Reset</button>
+        <button id="bulkPinBtn" class="bulk-pin-btn" type="button">＋&nbsp; Add</button>
+        <button id="copyPinnedBtn" class="pinned-copy-btn all-copy-btn" type="button">📋 All Copy</button>
+      </div>
+    </div>
+    <div class="pinned-summary">
+      <div class="pin-sum"><span>মোট Main</span><strong id="pinTotalMain">৳0</strong></div>
+      <div class="pin-sum"><span>মোট Minus</span><strong id="pinTotalMinus">৳0</strong></div>
+      <div class="pin-sum"><span>মোট বাকি</span><strong id="pinTotalRemain">৳0</strong></div>
+    </div>
+    <div id="pinnedList" class="pinned-list"></div>
+  </section>
+
+  <div id="empty" class="empty">এখনও কোনো ব্লক যোগ করা হয়নি</div>
+  <div id="blocks" class="blocks"></div>
+</div>
+
+<button class="chat-fab" id="chatFab" type="button">💬<span id="chatBadge" class="chat-badge hidden">0</span></button>
+<button class="fab" id="addBlockBtn" type="button">+</button>
+
+<div class="modal hidden" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>নতুন নাম্বার যোগ করুন</h2>
+      <button class="close" id="closeModal" type="button">✕</button>
+    </div>
+    <div id="countStep">
+      <label class="label" for="blockCount">কয়টি নাম্বার দিবেন?</label>
+      <input class="input" id="blockCount" type="number" inputmode="numeric" min="1" max="50" value="4">
+      <button class="full-btn" id="makeInputsBtn" type="button">Next</button>
+    </div>
+    <form class="hidden" id="numberForm" novalidate>
+      <input type="hidden" id="editingBlockId">
+      <div class="inputs" id="inputs"></div>
+      <button class="full-btn" type="submit">Submit</button>
+      <button class="back-btn" id="backBtn" type="button">পেছনে</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal hidden" id="pinAmountModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>Main Amount দিন</h2>
+      <button class="close" id="closePinModal" type="button">✕</button>
+    </div>
+    <div id="pinPhonePreview" class="pin-sum"></div>
+    <form id="pinAmountForm">
+      <input type="hidden" id="pinPhoneInput">
+      <label class="label" for="pinMainAmount">Main Amount</label>
+      <input class="input" id="pinMainAmount" type="number" min="0" inputmode="numeric" placeholder="যেমন 50000" required>
+      <button class="full-btn" type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal hidden" id="bulkPinModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>একসাথে Number ও Amount</h2>
+      <button class="close" id="closeBulkPinModal" type="button">✕</button>
+    </div>
+    <p class="help">দুইভাবেই লিখতে পারবেন:<br>01817247937<br>50000<br><br>অথবা 01817247937 = 50000</p>
+    <textarea id="bulkPinText" class="textarea" placeholder="01817247937&#10;50000&#10;01858255816 = 45000"></textarea>
+    <button id="bulkPinSave" class="full-btn" type="button">Save All</button>
+  </div>
+</div>
+
+<div class="modal hidden" id="chatModal"><div class="modal-box chat-box"><div class="chat-head"><div><h2>Chat</h2><small id="chatIdentity">Device</small></div><div class="chat-toolbar"><button class="chat-tool" id="enableNotifyBtn" type="button">🔔 Notify</button><button class="chat-tool chat-delete-all" id="deleteAllChatBtn" type="button">All Delete</button><button class="chat-tool" id="changeRoleBtn" type="button">⚙</button><button class="close" id="closeChatModal" type="button">✕</button></div></div><div id="chatList" class="chat-list"><div class="chat-empty">এখনও কোনো message নেই</div></div><form id="chatCompose" class="wa-compose"><textarea id="chatText" rows="1" maxlength="500" placeholder=""></textarea><button class="chat-send" type="submit" aria-label="Send">➤</button></form></div></div>
+<div class="modal hidden" id="roleModal"><div class="modal-box"><div class="modal-head"><h2>Device Setup</h2><button class="close" id="closeRoleModal" type="button">✕</button></div><label class="label" for="deviceNameInput">এই ডিভাইসের নাম</label><input class="input" id="deviceNameInput" type="text" maxlength="30" placeholder="যেমন User 01 বা Main Admin"><div class="role-options"><button class="role-btn" id="setUserRoleBtn" type="button">User Device</button><button class="role-btn admin" id="setAdminRoleBtn" type="button">Main Admin</button></div></div></div>
+
+<!-- Manual Limit Edit Modal -->
+<div class="modal hidden" id="limitEditModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>Limit Edit</h2>
+      <button class="close" id="closeLimitEditModal" type="button">✕</button>
+    </div>
+    <p class="help">
+      প্রতিটি নাম্বারের Used Limit লিখুন। মোট Limit 300000 থাকবে।
+      উদাহরণ: Used 50000 দিলে বাকি থাকবে 250000।
+    </p>
+    <div id="limitEditList" class="inputs"></div>
+    <button id="saveLimitEditBtn" class="full-btn" type="button">Save Limit</button>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var LIMIT_KEY="bks_manager_v4";
+  var BALANCE_KEY="bks_inline_balance_v2";
+  var OLD_BALANCE_KEY="bks_inline_balance_v1";
+  var ACTIVE_KEY="bks_active_work_phone_v31";
+  var FONT_KEY="bks_font_size_v1";
+  var PER_NUMBER_LIMIT=300000;
+  var DAILY_AMOUNT=50000;
+  var FIREBASE_PATH="bkashPersonalListV31Json";
+  var CHAT_PATH="bkashWhatsAppChatV1";
+  var CHAT_RETENTION_MS=7*24*60*60*1000;
+  var CHAT_NAME_KEY="bks_chat_name_v2";
+  var CHAT_DEVICE_KEY="bks_chat_device_v2";
+  var CHAT_LAST_SEEN_KEY="bks_chat_last_seen_v2";
+  var chatName=localStorage.getItem(CHAT_NAME_KEY)||"";
+  var chatDeviceId=localStorage.getItem(CHAT_DEVICE_KEY)||"";
+  var chatMessages=[];
+  var chatOpen=false;
+  var chatListenerStarted=false;
+  var editingLimitBlockId="";
+
+  if(!chatDeviceId){
+    chatDeviceId="device_"+Date.now()+"_"+Math.random().toString(16).slice(2);
+    localStorage.setItem(CHAT_DEVICE_KEY,chatDeviceId);
+  }
+  var cloudReady=false;
+  var suppressCloudWrite=false;
+  var cloudSaveTimer=null;
+
+  var data=loadJson(LIMIT_KEY,{blocks:[]});
+  var balanceData=loadBalance();
+
+  function byId(id){return document.getElementById(id)}
+  function newId(){return String(Date.now())+Math.random().toString(16).slice(2)}
+  function loadJson(key,fallback){try{var raw=localStorage.getItem(key);if(!raw)return fallback;var parsed=JSON.parse(raw);return parsed||fallback}catch(e){return fallback}}
+  function loadBalance(){
+    var current=loadJson(BALANCE_KEY,null);
+    if(current&&current.accounts)return current;
+    var old=loadJson(OLD_BALANCE_KEY,{accounts:{}});
+    if(!old.accounts)old.accounts={};
+    return old;
+  }
+  function saveLocalOnly(){
+    localStorage.setItem(LIMIT_KEY,JSON.stringify(data));
+    localStorage.setItem(BALANCE_KEY,JSON.stringify(balanceData));
+  }
+
+  function cloudPayload(){
+    return JSON.stringify({
+      version:35,
+      updatedAt:new Date().toISOString(),
+      data:data,
+      balanceData:balanceData
+    });
+  }
+
+  function saveAll(){
+    saveLocalOnly();
+    if(!window.firebaseDB||!cloudReady||suppressCloudWrite)return;
+
+    clearTimeout(cloudSaveTimer);
+    cloudSaveTimer=setTimeout(function(){
+      window.firebaseDB.ref(FIREBASE_PATH).set(cloudPayload()).catch(function(error){
+        console.error("Firebase save failed:",error);
+        toast("Cloud save হয়নি, local save আছে");
+      });
+    },180);
+  }
+  function normalizePhone(v){return String(v||"").replace(/\D/g,"")}
+  function escapeHtml(v){
+    return String(v||"")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+  }
+  function validPhone(v){return /^01\d{9}$/.test(v)}
+  function formatMoney(v){return new Intl.NumberFormat("en-IN").format(Number(v||0))}
+  function todayMark(){var d=new Date();return{full:d.toISOString().slice(0,10),day:String(d.getDate()),time:d.toISOString()}}
+  function toast(t){var e=byId("toast");e.textContent=t;e.classList.remove("hidden");clearTimeout(toast.x);toast.x=setTimeout(function(){e.classList.add("hidden")},1800)}
+  function applyFontSize(size){
+    document.body.classList.remove("font-low","font-medium","font-high");
+
+    if(size!=="low" && size!=="high"){
+      size="medium";
+    }
+
+    document.body.classList.add("font-"+size);
+    localStorage.setItem(FONT_KEY,size);
+
+    document.querySelectorAll(".font-option").forEach(function(button){
+      button.classList.toggle("active",button.dataset.font===size);
+    });
+  }
+  function setTemporaryActive(phone){
+    var state={phone:phone,expiresAt:Date.now()+60000};
+    localStorage.setItem(ACTIVE_KEY,JSON.stringify(state));
+
+    clearTimeout(setTemporaryActive.timer);
+    setTemporaryActive.timer=setTimeout(function(){
+      clearTemporaryActive();
+      render();
+    },60050);
+  }
+
+  function getTemporaryActivePhone(){
+    try{
+      var raw=localStorage.getItem(ACTIVE_KEY);
+      if(!raw)return "";
+
+      var state=JSON.parse(raw);
+      if(!state || !state.phone || !state.expiresAt || Date.now()>=state.expiresAt){
+        localStorage.removeItem(ACTIVE_KEY);
+        return "";
+      }
+
+      clearTimeout(setTemporaryActive.timer);
+      setTemporaryActive.timer=setTimeout(function(){
+        clearTemporaryActive();
+        render();
+      },Math.max(state.expiresAt-Date.now(),0)+50);
+
+      return state.phone;
+    }catch(error){
+      localStorage.removeItem(ACTIVE_KEY);
+      return "";
+    }
+  }
+
+  function clearTemporaryActive(){
+    localStorage.removeItem(ACTIVE_KEY);
+    clearTimeout(setTemporaryActive.timer);
+  }
+  function formatTime(iso){
+    if(!iso)return "";
+    var d=new Date(iso);
+    if(Number.isNaN(d.getTime()))return "";
+    return d.toLocaleTimeString("en-US",{
+      hour:"numeric",
+      minute:"2-digit",
+      hour12:true
+    }).replace(" ","").toLowerCase();
+  }
+
+  function normalizeBlock(block){
+    if(!Array.isArray(block.numbers))block.numbers=[];
+    if(typeof block.limitMode!=="boolean")block.limitMode=false;
+    if(typeof block.copyAmountMode!=="boolean")block.copyAmountMode=false;
+    if(!block.id)block.id=newId();
+    if(!Array.isArray(block.marks))block.marks=block.numbers.map(function(){return[null,null,null,null,null,null]});
+    while(block.marks.length<block.numbers.length)block.marks.push([null,null,null,null,null,null]);
+    block.marks=block.marks.slice(0,block.numbers.length).map(function(row){row=Array.isArray(row)?row:[];while(row.length<6)row.push(null);return row.slice(0,6)});
+    if(!Array.isArray(block.notes))block.notes=block.numbers.map(function(){return""});
+    while(block.notes.length<block.numbers.length)block.notes.push("");
+    block.notes=block.notes.slice(0,block.numbers.length).map(function(note){return String(note||"").slice(0,24)})
+  }
+  data.blocks.forEach(normalizeBlock);
+
+  function applyCloudPayload(raw){
+    if(typeof raw!=="string"||!raw)return false;
+    try{
+      var payload=JSON.parse(raw);
+      if(!payload||typeof payload!=="object")return false;
+
+      var nextData=payload.data;
+      var nextBalance=payload.balanceData;
+
+      if(!nextData||!Array.isArray(nextData.blocks))nextData={blocks:[]};
+      if(!nextBalance||typeof nextBalance!=="object")nextBalance={accounts:{}};
+      if(!nextBalance.accounts)nextBalance.accounts={};
+
+      nextData.blocks.forEach(normalizeBlock);
+
+      suppressCloudWrite=true;
+      data=nextData;
+      balanceData=nextBalance;
+      saveLocalOnly();
+      migratePinOrders();
+      render();
+      suppressCloudWrite=false;
+      return true;
+    }catch(error){
+      suppressCloudWrite=false;
+      console.error("Firebase data parse failed:",error);
+      toast("Cloud data পড়া যায়নি");
+      return false;
+    }
+  }
+
+  function account(phone){
+    if(!balanceData.accounts) balanceData.accounts={};
+
+    if(!balanceData.accounts[phone]){
+      balanceData.accounts[phone]={
+        mainAmount:0,
+        sentAmount:0,
+        pinned:false,
+        updatedAt:null,
+        deductions:[],
+        pinOrder:null,
+        limitUsed:0
+      };
+    }
+
+    var a=balanceData.accounts[phone];
+
+    if(typeof a.mainAmount!=="number"){
+      a.mainAmount=Number(a.in||0);
+    }
+
+    if(typeof a.sentAmount!=="number"){
+      a.sentAmount=Number(a.out||0);
+    }
+
+    if(typeof a.pinned!=="boolean"){
+      a.pinned=false;
+    }
+
+    if(!Array.isArray(a.deductions)){
+      a.deductions=[];
+    }
+
+    if(typeof a.limitUsed!=="number"){
+      a.limitUsed=a.deductions.reduce(function(total,item){
+        return total+Number(item&&item.amount||0);
+      },0);
+      if(!a.limitUsed && a.sentAmount>0){
+        a.limitUsed=Math.min(a.sentAmount,PER_NUMBER_LIMIT);
+      }
+    }
+
+    a.limitUsed=Math.max(0,Number(a.limitUsed||0));
+
+    return a;
+  }
+
+  function remaining(phone){
+    var a=account(phone);
+    return Math.max(a.mainAmount-a.sentAmount,0);
+  }
+
+  function monthlyUsedForPhone(phone){
+    return Math.max(0,Number(account(phone).limitUsed||0));
+  }
+
+  function monthlyRemainingForPhone(phone){
+    return Math.max(PER_NUMBER_LIMIT-monthlyUsedForPhone(phone),0);
+  }
+
+
+  function openLimitEditModal(block){
+    editingLimitBlockId=block.id;
+    var holder=byId("limitEditList");
+    holder.innerHTML="";
+
+    block.numbers.forEach(function(phone){
+      var used=monthlyUsedForPhone(phone);
+      var remain=Math.max(PER_NUMBER_LIMIT-used,0);
+
+      var row=document.createElement("div");
+      row.className="limit-edit-row";
+      row.innerHTML=
+        '<div class="limit-edit-phone">'+
+          '<strong>'+phone+'</strong>'+
+          '<small>Limit: '+formatMoney(PER_NUMBER_LIMIT)+' • বাকি: '+formatMoney(remain)+'</small>'+
+        '</div>'+
+        '<input class="limit-edit-used" type="number" min="0" max="'+PER_NUMBER_LIMIT+'" '+
+          'inputmode="numeric" data-limit-phone="'+phone+'" value="'+used+'">';
+
+      holder.appendChild(row);
+    });
+
+    byId("limitEditModal").classList.remove("hidden");
+
+    setTimeout(function(){
+      var first=holder.querySelector(".limit-edit-used");
+      if(first){ first.focus(); first.select(); }
+    },60);
+  }
+
+  function nextPinOrder(){
+    var max=0;
+
+    Object.keys(balanceData.accounts||{}).forEach(function(number){
+      var raw=balanceData.accounts[number];
+
+      if(raw && Number.isFinite(raw.pinOrder) && raw.pinOrder>max){
+        max=raw.pinOrder;
+      }
+    });
+
+    return max+1;
+  }
+
+  function migratePinOrders(){
+    var next=nextPinOrder();
+
+    Object.keys(balanceData.accounts||{}).forEach(function(number){
+      var a=account(number);
+
+      if(a.pinned && !Number.isFinite(a.pinOrder)){
+        a.pinOrder=next;
+        next++;
+      }
+    });
+  }
+
+  function allBlockPhones(){
+    var list=[];
+    data.blocks.forEach(function(block){block.numbers.forEach(function(n){if(list.indexOf(n)<0)list.push(n)})});
+    return list
+  }
+  function findBlockForPhone(phone){
+    for(var i=0;i<data.blocks.length;i++){
+      var idx=data.blocks[i].numbers.indexOf(phone);
+      if(idx!==-1)return{block:data.blocks[i],blockIndex:i,numberIndex:idx}
+    }
+    return null
+  }
+
+  function noteForPhone(phone){
+    var found=findBlockForPhone(phone);
+    if(!found)return "";
+    return String(found.block.notes&&found.block.notes[found.numberIndex]||"").trim();
+  }
+  function usedMarks(block){var c=0;block.marks.forEach(function(row){row.forEach(function(m){if(m)c++})});return c}
+  function blockProgress(block){
+    var max=block.numbers.length*6,u=usedMarks(block),p=max?Math.round(u/max*100):0,avg=block.numbers.length?u/block.numbers.length:0,color="";
+    if(avg>0&&avg<=3)color="green";else if(avg>3&&avg<6)color="yellow";else if(avg>=6)color="red";
+    return{percent:p,color:color}
+  }
+  function dayState(block,dayIndex){
+    var count=0,date="";
+    block.marks.forEach(function(row){if(row[dayIndex]){count++;date=row[dayIndex].day}});
+    if(count===0)return{className:"",date:""};
+    if(count===block.numbers.length)return{className:"used",date:date};
+    return{className:"partial",date:date}
+  }
+  function copyText(text,msg){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){toast(msg)}).catch(function(){fallbackCopy(text,msg)})
+    }else fallbackCopy(text,msg)
+  }
+  function fallbackCopy(text,msg){var ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast(msg)}
+
+  function parseNumberMessage(text){
+    var clean=String(text||"").replace(/\r/g,"").trim();
+    var match=clean.match(/^(01\d{9})\s*(?:=|:|-|\s+|\n+)\s*([\d,]+)(?:\s*(?:tk|taka|৳))?\s*$/i);
+    if(!match)return null;
+    var amount=Number(match[2].replace(/,/g,""));
+    if(!Number.isFinite(amount) || amount<0)return null;
+    return {phone:match[1],amount:amount};
+  }
+
+  function formatChatTime(timestamp){
+    var d=new Date(Number(timestamp||0));
+    if(Number.isNaN(d.getTime()))return "";
+    return d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",hour12:true}).replace(" ","").toLowerCase();
+  }
+
+  function chatAlert(){
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext;
+      if(AC){
+        var ctx=new AC();
+        var now=ctx.currentTime;
+        [
+          {offset:0,frequency:880,duration:.24},
+          {offset:.28,frequency:1040,duration:.24},
+          {offset:.58,frequency:920,duration:.30}
+        ].forEach(function(tone){
+          var osc=ctx.createOscillator();
+          var gain=ctx.createGain();
+          osc.type="sine";
+          osc.frequency.value=tone.frequency;
+          gain.gain.setValueAtTime(.0001,now+tone.offset);
+          gain.gain.exponentialRampToValueAtTime(.25,now+tone.offset+.025);
+          gain.gain.exponentialRampToValueAtTime(.0001,now+tone.offset+tone.duration);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now+tone.offset);
+          osc.stop(now+tone.offset+tone.duration+.03);
+        });
+        setTimeout(function(){try{ctx.close()}catch(e){}},1300);
+      }
+    }catch(error){
+      console.error("Chat sound failed",error);
+    }
+    if(navigator.vibrate){navigator.vibrate([260,120,260,120,360]);}
+  }
+
+  function requestChatNotify(){
+    if(!("Notification" in window)){toast("Notification support নেই");return;}
+    Notification.requestPermission().then(function(permission){
+      toast(permission==="granted"?"Notification চালু হয়েছে":"Permission দেওয়া হয়নি");
+    });
+  }
+
+  function systemChatNotify(message){
+    if(message.senderDeviceId===chatDeviceId)return;
+    chatAlert();
+    if("Notification" in window && Notification.permission==="granted"){
+      try{
+        var parsed=parseNumberMessage(message.text);
+        var body=parsed ? parsed.phone+" = "+formatMoney(parsed.amount)+" Tk" : String(message.text||"").slice(0,120);
+        var notification=new Notification(message.senderName||"New message",{body:body,tag:"bk-chat-"+message.id});
+        notification.onclick=function(){window.focus();openChatModal();notification.close();};
+      }catch(error){console.error("Notification failed",error);}
+    }
+  }
+
+  function ensureChatIdentity(){
+    if(chatName)return true;
+    byId("deviceNameInput").value="";
+    byId("roleModal").classList.remove("hidden");
+    return false;
+  }
+
+  function saveChatName(){
+    var value=String(byId("deviceNameInput").value||"").trim();
+    if(!value){toast("Device/User name লিখুন");byId("deviceNameInput").focus();return;}
+    chatName=value;
+    localStorage.setItem(CHAT_NAME_KEY,chatName);
+    close("roleModal");
+    byId("chatIdentity").textContent=chatName;
+    openChatModal();
+  }
+
+  function cleanupOldChat(){
+    if(!window.firebaseDB)return;
+    var cutoff=Date.now()-CHAT_RETENTION_MS;
+    window.firebaseDB.ref(CHAT_PATH).orderByChild("createdAt").endAt(cutoff).once("value",function(snapshot){
+      var updates={};
+      snapshot.forEach(function(child){updates[child.key]=null});
+      if(Object.keys(updates).length){window.firebaseDB.ref(CHAT_PATH).update(updates);}
+    });
+  }
+
+  function chatUnreadCount(){
+    var lastSeen=Number(localStorage.getItem(CHAT_LAST_SEEN_KEY)||0);
+    return chatMessages.filter(function(message){
+      return message.createdAt>lastSeen && message.senderDeviceId!==chatDeviceId;
+    }).length;
+  }
+
+  function updateChatBadge(){
+    var count=chatUnreadCount();
+    var badge=byId("chatBadge");
+    badge.textContent=count>99?"99+":String(count);
+    badge.classList.toggle("hidden",count===0);
+  }
+
+  function receiptHtml(message,mine){
+    if(!mine)return "";
+    if(message.readAt){return '<span class="chat-receipt read" title="Read">✓✓</span>';}
+    if(message.deliveredAt){return '<span class="chat-receipt delivered" title="Delivered">✓✓</span>';}
+    return '<span class="chat-receipt sent" title="Sent">✓</span>';
+  }
+
+  function renderWhatsAppChat(){
+    var list=byId("chatList");
+    list.innerHTML="";
+    var visible=chatMessages.filter(function(message){return message.expiresAt>Date.now()}).sort(function(a,b){return a.createdAt-b.createdAt});
+    if(!visible.length){
+      list.innerHTML='<div class="chat-empty">এখনও কোনো message নেই</div>';
+      updateChatBadge();
+      return;
+    }
+
+    visible.forEach(function(message){
+      var mine=message.senderDeviceId===chatDeviceId;
+      var parsed=parseNumberMessage(message.text);
+      var row=document.createElement("div");
+      row.className="chat-row "+(mine?"mine":"other");
+
+      var body="";
+      if(parsed){
+        var actionButtons="";
+        if(message.claimedBy){
+          actionButtons='<div class="chat-taken">'+(message.claimedBy===chatDeviceId ? "আপনি নিয়েছেন" : "Taken by "+escapeHtml(message.claimedName||"another user"))+'</div>';
+        }else if(mine){
+          actionButtons='<div class="chat-bubble-actions sender-actions"><button type="button" class="chat-mini-btn" data-wa-action="copy" data-wa-id="'+message.id+'">Copy</button><button type="button" class="chat-mini-btn delete" data-wa-action="delete" data-wa-id="'+message.id+'">Delete</button></div>';
+        }else{
+          actionButtons='<div class="chat-bubble-actions receiver-actions"><button type="button" class="chat-mini-btn take" data-wa-action="take" data-wa-id="'+message.id+'">Copy & Take</button></div>';
+        }
+
+        body='<div class="chat-number-card '+(message.claimedBy?"claimed":"")+'"><div class="chat-text">'+escapeHtml(parsed.phone)+'</div><div class="chat-money">'+formatMoney(parsed.amount)+' Tk</div>'+actionButtons+'</div>';
+      }else{
+        body='<div class="chat-text">'+escapeHtml(message.text)+'</div>'+(mine ? '<div class="chat-bubble-actions"><button type="button" class="chat-mini-btn delete" data-wa-action="delete" data-wa-id="'+message.id+'">Delete</button></div>' : '');
+      }
+
+      row.innerHTML='<div class="chat-bubble">'+(!mine?'<div class="chat-sender">'+escapeHtml(message.senderName||"User")+'</div>':'')+body+'<div class="chat-bubble-meta"><span>'+formatChatTime(message.createdAt)+'</span>'+receiptHtml(message,mine)+'</div></div>';
+      list.appendChild(row);
+    });
+
+    list.scrollTop=list.scrollHeight;
+    updateChatBadge();
+  }
+
+  function markIncomingChatStatus(markRead){
+    if(!window.firebaseDB)return;
+    var updates={};
+    var now=Date.now();
+
+    chatMessages.forEach(function(message){
+      if(message.senderDeviceId===chatDeviceId)return;
+      if(!message.deliveredAt){updates[message.id+"/deliveredAt"]=now;}
+      if(markRead && !message.readAt){
+        updates[message.id+"/readAt"]=now;
+        updates[message.id+"/readBy"]=chatDeviceId;
+        updates[message.id+"/readByName"]=chatName;
+      }
+    });
+
+    if(Object.keys(updates).length){window.firebaseDB.ref(CHAT_PATH).update(updates);}
+  }
+
+  function deleteAllChatPermanently(){
+    if(!window.firebaseDB){toast("Firebase connect নেই");return;}
+    if(!confirm("সব Chat স্থায়ীভাবে Delete করবেন?"))return;
+    if(!confirm("এটি Undo করা যাবে না। নিশ্চিত?"))return;
+
+    window.firebaseDB.ref(CHAT_PATH).remove().then(function(){
+      chatMessages=[];
+      renderWhatsAppChat();
+      toast("সব Chat স্থায়ীভাবে Delete হয়েছে");
+    }).catch(function(error){
+      console.error(error);
+      toast("All Delete হয়নি");
+    });
+  }
+
+  function openChatModal(){
+    if(!ensureChatIdentity())return;
+    chatOpen=true;
+    byId("chatIdentity").textContent=chatName;
+    byId("chatModal").classList.remove("hidden");
+    byId("chatCompose").classList.remove("hidden");
+
+    if(!history.state || history.state.screen!=="chat"){history.pushState({screen:"chat"},"","#chat");}
+
+    localStorage.setItem(CHAT_LAST_SEEN_KEY,String(Date.now()));
+    updateChatBadge();
+    cleanupOldChat();
+    markIncomingChatStatus(true);
+    setTimeout(function(){
+      byId("chatText").focus();
+      byId("chatList").scrollTop=byId("chatList").scrollHeight;
+    },80);
+  }
+
+  function closeChatModal(skipHistory){
+    chatOpen=false;
+    close("chatModal");
+    localStorage.setItem(CHAT_LAST_SEEN_KEY,String(Date.now()));
+    updateChatBadge();
+    if(!skipHistory && history.state && history.state.screen==="chat"){history.back();}
+  }
+
+  function sendChatText(text){
+    if(!window.firebaseDB){toast("Firebase connect নেই");return Promise.reject(new Error("Firebase unavailable"));}
+    var ref=window.firebaseDB.ref(CHAT_PATH).push();
+    var now=Date.now();
+    return ref.set({
+      id:ref.key,
+      text:text,
+      senderName:chatName,
+      senderDeviceId:chatDeviceId,
+      createdAt:now,
+      expiresAt:now+CHAT_RETENTION_MS,
+      claimedBy:"",
+      claimedName:"",
+      claimedAt:0,
+      deliveredAt:0,
+      readAt:0,
+      readBy:"",
+      readByName:""
+    });
+  }
+
+  function findWaMessage(id){
+    return chatMessages.find(function(message){return message.id===id});
+  }
+
+  function startWhatsAppListener(){
+    if(!window.firebaseDB || chatListenerStarted)return;
+    chatListenerStarted=true;
+    cleanupOldChat();
+
+    window.firebaseDB.ref(CHAT_PATH).orderByChild("createdAt").limitToLast(150).on("value",function(snapshot){
+      var previous={};
+      chatMessages.forEach(function(message){previous[message.id]=true});
+
+      var next=[];
+      snapshot.forEach(function(child){
+        var value=child.val()||{};
+        value.id=child.key;
+        if(value.expiresAt>Date.now())next.push(value);
+      });
+
+      var incoming=next.filter(function(message){
+        return !previous[message.id] && message.senderDeviceId!==chatDeviceId;
+      });
+
+      chatMessages=next;
+      renderWhatsAppChat();
+      markIncomingChatStatus(chatOpen);
+
+      if(incoming.length){
+        var newest=incoming.sort(function(a,b){return b.createdAt-a.createdAt})[0];
+        if(chatOpen){
+          chatAlert();
+          localStorage.setItem(CHAT_LAST_SEEN_KEY,String(Date.now()));
+        }else{
+          systemChatNotify(newest);
+        }
+        updateChatBadge();
+      }
+    });
+  }
+
+  function renderPinned(){
+    var phones=Object.keys(balanceData.accounts||{}).filter(function(n){return account(n).pinned});
+    phones.sort(function(a,b){
+      var aa=account(a), bb=account(b);
+      var ao=Number.isFinite(aa.pinOrder)?aa.pinOrder:999999;
+      var bo=Number.isFinite(bb.pinOrder)?bb.pinOrder:999999;
+      return ao-bo;
+    });
+
+    var panel=byId("pinnedPanel");
+    var list=byId("pinnedList");
+    list.innerHTML="";
+
+    if(!phones.length){
+      panel.classList.add("hidden");
+      return
+    }
+    panel.classList.remove("hidden");
+
+    var totalMain=0,totalMinus=0,totalRemain=0;
+    phones.forEach(function(n){
+      var a=account(n);
+      totalMain+=a.mainAmount;
+      totalMinus+=a.sentAmount;
+      totalRemain+=remaining(n);
+
+      var chips=a.deductions.slice(0,8).map(function(d,index){
+        return'<span class="deduction-chip" data-undo-phone="'+n+'" data-undo-index="'+index+'" title="৫ সেকেন্ড ধরে রাখুন Undo করতে">−৳'+formatMoney(d.amount)+'<small>'+formatTime(d.time)+'</small></span>'
+      }).join("");
+
+      var item=document.createElement("div");
+      var activePhone=getTemporaryActivePhone();
+      var limitWarning=monthlyUsedForPhone(n)>=250000;
+      item.className="pinned-item"+(activePhone===n?" active-work":"")+(limitWarning?" limit-warning-card":"");
+      item.innerHTML=
+        '<div class="pinned-top">'+
+          '<div class="pin-control-stack">'+
+            '<button type="button" class="quick-add-btn" data-action="global-add" data-phone="'+n+'" aria-label="Add amount">+</button>'+
+            '<button type="button" class="pin-toggle" data-action="global-unpin" data-phone="'+n+'">★</button>'+
+          '</div>'+
+          '<div class="pinned-number">'+
+            '<div class="pinned-number-line">'+
+              '<strong class="copy-last3" data-copy-last3="'+n.slice(-3)+'">'+n+'</strong>'+
+              (noteForPhone(n)?'<span class="inline-note">'+escapeHtml(noteForPhone(n).split(/\s+/).slice(0,8).join(" "))+'</span>':'')+
+            '</div>'+
+            '<small class="copy-amount" data-copy-amount="'+remaining(n)+'">বাকি ৳'+formatMoney(remaining(n))+'</small>'+
+          '</div>'+
+          '<div class="quick-minus">'+
+            '<input type="number" min="1" inputmode="numeric" placeholder="'+formatMoney(monthlyRemainingForPhone(n))+'" data-global-minus-input="'+n+'">'+
+            '<button type="button" class="minus-btn" data-action="global-minus" data-phone="'+n+'">−</button>'+
+          '</div>'+
+        '</div>'+
+        '<div class="deduction-row"><div class="deduction-list">'+chips+'</div></div>';
+      list.appendChild(item)
+    });
+
+    byId("pinTotalMain").textContent="৳"+formatMoney(totalMain);byId("pinTotalMain").classList.add("copy-amount");byId("pinTotalMain").dataset.copyAmount=String(totalMain);
+    byId("pinTotalMinus").textContent="৳"+formatMoney(totalMinus);byId("pinTotalMinus").classList.add("copy-amount");byId("pinTotalMinus").dataset.copyAmount=String(totalMinus);
+    byId("pinTotalRemain").textContent="৳"+formatMoney(totalRemain);byId("pinTotalRemain").classList.add("copy-amount");byId("pinTotalRemain").dataset.copyAmount=String(totalRemain)
+  }
+
+  function renderBlocks(){
+    var container=byId("blocks");
+    container.innerHTML="";
+    var totalNumbers=0,totalUsedMarks=0;
+
+    data.blocks.forEach(function(block,index){
+      normalizeBlock(block);
+      totalNumbers+=block.numbers.length;
+      totalUsedMarks+=usedMarks(block);
+      var progress=blockProgress(block);
+
+      var visible=block.numbers.map(function(number,numberIndex){
+        return{number:number,index:numberIndex}
+      }).filter(function(item){return!account(item.number).pinned});
+
+      var numbersHtml=visible.map(function(item){
+        var number=item.number,numberIndex=item.index,mini="";
+        if(block.limitMode){
+          mini='<div class="number-limits">'+block.marks[numberIndex].map(function(mark,dayIndex){
+            return'<button type="button" class="mini-day '+(mark?"used":"")+'" data-action="number-day" data-id="'+block.id+'" data-number="'+numberIndex+'" data-day="'+dayIndex+'">'+(dayIndex+1)+(mark?'<small>'+mark.day+'</small>':'')+'</button>'
+          }).join("")+'</div>'
+        }
+        var usedLimit=monthlyUsedForPhone(number);
+        var limitWarning=usedLimit>=250000;
+        return'<div class="number-row '+(limitWarning?"limit-warning-row":"")+'">'+
+          '<div class="number-main">'+
+            '<button type="button" class="pin-small" data-action="pin-number" data-phone="'+number+'">PIN</button>'+
+            '<div class="phone-wrap">'+
+              '<div class="phone-line">'+
+                '<div class="phone copy-full-number '+(limitWarning?"limit-warning":"")+'" data-copy-full-number="'+number+'">'+number+'</div>'+
+                (block.notes[numberIndex]?'<span class="inline-note">'+escapeHtml(String(block.notes[numberIndex]).split(/\s+/).slice(0,8).join(" "))+'</span>':'')+
+              '</div>'+
+            '</div>'+
+            '<div class="limit-mini">'+
+              '<span>Limit : '+formatMoney(PER_NUMBER_LIMIT)+'</span>'+
+              '<span class="used">Used : '+formatMoney(usedLimit)+'</span>'+
+            '</div>'+
+          '</div>'+mini+
+        '</div>'
+      }).join("");
+
+      if(!visible.length){
+        numbersHtml='<div class="empty" style="padding:12px">এই Block-এর সব নাম্বার উপরে Pin করা আছে</div>'
+      }
+
+      var dayButtons="";
+      for(var d=0;d<6;d++){
+        var state=dayState(block,d);
+        dayButtons+='<button type="button" class="day '+state.className+'" data-action="block-day" data-id="'+block.id+'" data-day="'+d+'">'+(d+1)+(state.date?'<small>'+state.date+'</small>':'')+'</button>'
+      }
+
+      var section=document.createElement("section");
+      section.className="block";
+      section.innerHTML=
+        '<div class="block-top">'+
+          '<div class="block-head-left"><div class="block-circle '+progress.color+'"><span class="serial">'+(index+1)+'</span><span class="percent">'+progress.percent+'%</span></div></div>'+
+          '<div class="actions">'+
+            '<button type="button" class="action-btn '+(block.copyAmountMode?"amount-active":"")+'" data-action="copy-amount" data-id="'+block.id+'">50</button>'+
+            '<button type="button" class="action-btn '+(block.limitMode?"active":"")+'" data-action="limit" data-id="'+block.id+'">Limit</button>'+
+            '<button type="button" class="action-btn" data-action="copy" data-id="'+block.id+'">Copy</button>'+
+            '<button type="button" class="action-btn edit" data-action="edit" data-id="'+block.id+'">Edit</button>'+
+            '<button type="button" class="action-btn delete" data-action="delete" data-id="'+block.id+'">Delete</button>'+
+          '</div>'+
+        '</div>'+
+        '<div class="numbers">'+numbersHtml+'</div>'+
+        '<div class="days">'+dayButtons+'</div>';
+      container.appendChild(section)
+    });
+
+    var totalLimit=totalNumbers*PER_NUMBER_LIMIT;
+    var usedAmount=allBlockPhones().reduce(function(total,phone){
+      return total+monthlyUsedForPhone(phone);
+    },0);
+    var remain=Math.max(totalLimit-usedAmount,0);
+    var percent=totalLimit?Math.round(remain/totalLimit*100):100;
+
+    byId("totalLimitLabel").textContent="নাম্বার "+totalNumbers+" টি ➤ লিমিট";
+    byId("totalLimit").textContent="৳"+formatMoney(totalLimit);byId("totalLimit").classList.add("copy-amount");byId("totalLimit").dataset.copyAmount=String(totalLimit);
+    byId("remainingLimit").textContent="৳"+formatMoney(remain);byId("remainingLimit").classList.add("copy-amount");byId("remainingLimit").dataset.copyAmount=String(remain);
+    byId("usedPercent").textContent=percent+"%";
+    byId("usedDonut").style.setProperty("--fill",(percent*3.6)+"deg");
+    byId("usedDonut").style.setProperty("--donut-color",percent>50?"var(--green)":percent>20?"var(--yellow)":"var(--red)");
+    byId("empty").style.display=data.blocks.length?"none":"block"
+  }
+
+  function undoDeduction(phone,index){
+    var a=account(phone);
+    if(!a.deductions[index]){toast("এই Minus পাওয়া যায়নি");return}
+
+    var deduction=a.deductions[index];
+    var confirmed=confirm(
+      "−৳"+formatMoney(deduction.amount)+" Undo করবেন?\n"+
+      "Amount আবার মোট বাকি টাকায় যোগ হবে।"
+    );
+    if(!confirmed)return;
+
+    a.sentAmount=Math.max(a.sentAmount-deduction.amount,0);
+    a.limitUsed=Math.max((a.limitUsed||0)-deduction.amount,0);
+    a.deductions.splice(index,1);
+    a.updatedAt=new Date().toISOString();
+    setTemporaryActive(phone);
+    setTemporaryActive(phone);
+    render();
+    toast("৳"+formatMoney(deduction.amount)+" আবার যোগ হয়েছে");
+  }
+
+  function render(){renderPinned();renderBlocks();saveAll()}
+
+  function openAddModal(block){
+    byId("modal").classList.remove("hidden");
+    byId("inputs").innerHTML="";
+    if(block){
+      byId("editingBlockId").value=block.id;
+      byId("countStep").classList.add("hidden");
+      byId("numberForm").classList.remove("hidden");
+      block.numbers.forEach(function(n,i){addInput(i+1,n,block.notes&&block.notes[i]||"")})
+    }else{
+      byId("editingBlockId").value="";
+      byId("countStep").classList.remove("hidden");
+      byId("numberForm").classList.add("hidden");
+      byId("blockCount").value="4"
+    }
+  }
+  function addInput(i,value,note){
+    var row=document.createElement("div");
+    row.className="input-line";
+    row.innerHTML=
+      '<div class="idx">'+i+'</div>'+
+      '<input class="input phone-input" type="tel" inputmode="numeric" maxlength="11" value="'+escapeHtml(value||"")+'" placeholder="01XXXXXXXXX" required>'+
+      '<input class="note-input" type="text" maxlength="24" value="'+escapeHtml(note||"")+'" placeholder="SIM Note">';
+    byId("inputs").appendChild(row);
+  }
+  function close(id){byId(id).classList.add("hidden")}
+
+  byId("addBlockBtn").onclick=function(){openAddModal(null)};
+  byId("closeModal").onclick=function(){close("modal")};
+  byId("backBtn").onclick=function(){byId("numberForm").classList.add("hidden");byId("countStep").classList.remove("hidden")};
+  byId("makeInputsBtn").onclick=function(){
+    var count=parseInt(byId("blockCount").value,10);
+    if(!count||count<1){toast("সঠিক সংখ্যা দিন");return}
+    count=Math.min(count,50);byId("inputs").innerHTML="";
+    for(var i=1;i<=count;i++)addInput(i,"","");
+    byId("countStep").classList.add("hidden");byId("numberForm").classList.remove("hidden")
+  };
+
+  byId("numberForm").onsubmit=function(e){
+    e.preventDefault();
+
+    var inputs=[].slice.call(
+      byId("inputs").querySelectorAll(".phone-input")
+    );
+
+    if(!inputs.length){
+      toast("আগে Next চাপুন");
+      return;
+    }
+
+    var nums=inputs.map(function(x){
+      return normalizePhone(x.value);
+    });
+    var noteInputs=[].slice.call(byId("inputs").querySelectorAll(".note-input"));
+    var notes=noteInputs.map(function(x){return String(x.value||"").trim().slice(0,24)});
+    if(nums.some(function(n){return!validPhone(n)})){toast("সঠিক ১১ ডিজিটের নাম্বার দিন");return}
+    if(new Set(nums).size!==nums.length){toast("ডুপ্লিকেট নাম্বার আছে");return}
+
+    var editId=byId("editingBlockId").value;
+    if(editId){
+      var block=data.blocks.find(function(b){return b.id===editId});
+      var oldNumbers=block.numbers.slice(),oldMarks=block.marks.slice();
+      block.numbers=nums;
+      block.notes=notes;
+      block.marks=nums.map(function(n,i){
+        var oldIndex=oldNumbers.indexOf(n);
+        return oldIndex!==-1&&oldMarks[oldIndex]?oldMarks[oldIndex]:[null,null,null,null,null,null]
+      });
+      normalizeBlock(block);
+      toast("Block update হয়েছে")
+    }else{
+      data.blocks.push({id:newId(),numbers:nums,notes:notes,limitMode:false,copyAmountMode:false,marks:nums.map(function(){return[null,null,null,null,null,null]})});
+      toast("নাম্বার সেভ হয়েছে")
+    }
+    try{
+      saveAll();
+      close("modal");
+      render();
+    }catch(error){
+      console.error(error);
+      alert("নাম্বার Save করতে সমস্যা হয়েছে: "+error.message);
+    }
+  };
+
+  byId("blocks").onclick=function(e){
+    var button=e.target.closest("button[data-action]");
+    if(!button)return;
+    var action=button.dataset.action;
+
+    if(action==="pin-number"){
+      var n=button.dataset.phone;
+      byId("pinPhoneInput").value=n;
+      byId("pinPhonePreview").textContent=n;
+      byId("pinMainAmount").value=remaining(n)>0?String(remaining(n)):"50000";
+      byId("pinAmountModal").classList.remove("hidden");
+      setTimeout(function(){byId("pinMainAmount").focus();byId("pinMainAmount").select()},50);
+      return
+    }
+
+    var block=data.blocks.find(function(b){return b.id===button.dataset.id});
+    if(!block)return;
+
+    if(action==="copy-amount"){block.copyAmountMode=!block.copyAmountMode;render();return}
+    if(action==="limit"){openLimitEditModal(block);return}
+    if(action==="block-day"){
+      var day=Number(button.dataset.day);
+      var all=block.marks.every(function(row){return!!row[day]});
+      block.marks.forEach(function(row){row[day]=all?null:todayMark()});
+      render();return
+    }
+    if(action==="number-day"){
+      var ni=Number(button.dataset.number),di=Number(button.dataset.day);
+      block.marks[ni][di]=block.marks[ni][di]?null:todayMark();
+      render();return
+    }
+    if(action==="copy"){
+      var blockIndex=data.blocks.indexOf(block)+1;
+      var lines=block.numbers.map(function(n,i){
+        var note=block.notes&&block.notes[i]?String(block.notes[i]).trim():"";
+        var line=n+(note?"  "+note:"");
+        if(block.copyAmountMode)line+=" ✅\n50000";
+        return line;
+      });
+      var txt="Blog "+blockIndex+"\n"+lines.join(block.copyAmountMode?"\n\n":"\n");
+      copyText(txt,block.copyAmountMode?"Blog, নাম্বার ও 50000 কপি হয়েছে":"Blog ও সব নাম্বার কপি হয়েছে");
+      return
+    }
+    if(action==="edit"){openAddModal(block);return}
+    if(action==="delete"&&confirm("এই ব্লক ডিলিট করবেন?")){
+      data.blocks=data.blocks.filter(function(b){return b.id!==block.id});render()
+    }
+  };
+
+  byId("pinnedList").onclick=function(e){
+    var button=e.target.closest("button[data-action]");
+    if(!button)return;
+    var action=button.dataset.action,n=button.dataset.phone,a=account(n);
+
+    if(action==="global-unpin"){
+      var currentRemaining=remaining(n);
+
+      if(currentRemaining>0){
+        alert(
+          "এই নাম্বারে এখনও ৳"+formatMoney(currentRemaining)+" বাকি আছে।\n"+
+          "Amount 0 না হওয়া পর্যন্ত Unpin করা যাবে না।"
+        );
+        return;
+      }
+
+      var confirmed=confirm("এই নাম্বারটি Unpin করবেন?");
+      if(!confirmed){return;}
+
+      a.pinned=false;
+      delete a.pinOrder;
+      a.updatedAt=new Date().toISOString();
+      render();
+      toast("তালিকায় ফেরত গেছে");
+      return
+    }
+    if(action==="global-add"){
+      var addAmount=Number(prompt("কত টাকা Main Amount-এর সাথে যোগ করবেন?",""));
+      if(!addAmount || addAmount<=0){
+        toast("সঠিক Amount দিন");
+        return;
+      }
+
+      a.mainAmount+=addAmount;
+      a.updatedAt=new Date().toISOString();
+      setTemporaryActive(n);
+      render();
+      toast("৳"+formatMoney(addAmount)+" যোগ হয়েছে");
+      return;
+    }
+
+    if(action==="global-minus"){
+      var input=document.querySelector('input[data-global-minus-input="'+n+'"]');
+      var amount=Number(input.value);
+      if(!amount||amount<=0){toast("কত টাকা বাদ দিবেন লিখুন");input.focus();return}
+      if(amount>remaining(n)){toast("বাকি Amount-এর চেয়ে বেশি বাদ দেওয়া যাবে না");input.focus();return}
+      a.sentAmount+=amount;
+      a.limitUsed=(a.limitUsed||0)+amount;
+      a.updatedAt=new Date().toISOString();
+      a.deductions.unshift({amount:amount,time:a.updatedAt});
+      setTemporaryActive(n);
+      render();
+      toast("৳"+formatMoney(amount)+" বাদ হয়েছে, লিমিট বাকি "+formatMoney(monthlyRemainingForPhone(n)))
+    }
+  };
+
+
+  byId("closeLimitEditModal").onclick=function(){
+    editingLimitBlockId="";
+    close("limitEditModal");
+  };
+
+  byId("saveLimitEditBtn").onclick=function(){
+    var block=data.blocks.find(function(b){return b.id===editingLimitBlockId});
+    if(!block){
+      toast("Block পাওয়া যায়নি");
+      return;
+    }
+
+    var inputs=[].slice.call(byId("limitEditList").querySelectorAll(".limit-edit-used"));
+    var invalid=false;
+
+    inputs.forEach(function(input){
+      var value=Number(input.value);
+      if(!Number.isFinite(value) || value<0 || value>PER_NUMBER_LIMIT){
+        invalid=true;
+      }
+    });
+
+    if(invalid){
+      toast("Used Limit 0 থেকে 300000 এর মধ্যে দিন");
+      return;
+    }
+
+    inputs.forEach(function(input){
+      var phone=input.dataset.limitPhone;
+      var value=Number(input.value);
+      account(phone).limitUsed=value;
+    });
+
+    editingLimitBlockId="";
+    close("limitEditModal");
+    render();
+    toast("Limit update হয়েছে");
+  };
+
+  byId("closePinModal").onclick=function(){close("pinAmountModal")};
+  byId("pinAmountForm").onsubmit=function(e){
+    e.preventDefault();
+    var n=byId("pinPhoneInput").value,amount=Number(byId("pinMainAmount").value);
+    if(!Number.isFinite(amount)||amount<0){toast("সঠিক Main Amount দিন");return}
+    var a=account(n);
+    a.mainAmount=amount;
+    a.sentAmount=0;
+    if(!a.pinned || !Number.isFinite(a.pinOrder))a.pinOrder=nextPinOrder();
+    a.pinned=true;
+    a.updatedAt=new Date().toISOString();
+    a.deductions=[];
+    close("pinAmountModal");
+    render();
+    toast("Amount সেভ হয়েছে")
+  };
+
+  byId("resetLimitBtn").onclick=function(){
+    if(!confirm("১/৩: সব নাম্বারের লিমিট Reset করবেন?"))return;
+    if(!confirm("২/৩: সব ব্যবহার করা লিমিট 0 হয়ে যাবে। নিশ্চিত?"))return;
+    if(!confirm("৩/৩: শেষবার নিশ্চিত করুন। Reset হলে নতুন করে 300000 থেকে গণনা শুরু হবে।"))return;
+
+    data.blocks.forEach(function(block){
+      normalizeBlock(block);
+      block.marks=block.numbers.map(function(){
+        return [null,null,null,null,null,null];
+      });
+    });
+
+    Object.keys(balanceData.accounts||{}).forEach(function(phone){
+      account(phone).limitUsed=0;
+    });
+
+    saveAll();
+    render();
+    toast("সব নাম্বারের লিমিট Reset হয়েছে");
+  };
+
+  byId("copyPinnedBtn").onclick=function(){
+    var phones=Object.keys(balanceData.accounts||{}).filter(function(number){
+      var a=account(number);
+      return a.pinned && remaining(number)>0;
+    });
+
+    phones.sort(function(a,b){
+      var aa=account(a),bb=account(b);
+      var ao=Number.isFinite(aa.pinOrder)?aa.pinOrder:999999;
+      var bo=Number.isFinite(bb.pinOrder)?bb.pinOrder:999999;
+      return ao-bo;
+    });
+
+    if(!phones.length){
+      toast("কপি করার মতো Amount নেই");
+      return;
+    }
+
+    var text=phones.map(function(number){
+      var note=noteForPhone(number);
+      return number+"  ✅"+(note?" "+note:"")+"\n"+formatMoney(remaining(number))+" Tk";
+    }).join("\n\n");
+
+    copyText(text,"Pin করা নাম্বার, Note ও Amount কপি হয়েছে");
+  };
+
+  byId("bulkPinBtn").onclick=function(){byId("bulkPinText").value="";byId("bulkPinModal").classList.remove("hidden")};
+  byId("closeBulkPinModal").onclick=function(){close("bulkPinModal")};
+  byId("bulkPinSave").onclick=function(){
+    var raw=byId("bulkPinText").value;
+    var lines=raw.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean);
+
+    if(!lines.length){
+      toast("নাম্বার ও Amount লিখুন");
+      return;
+    }
+
+    var pairs=[];
+    var bad=0;
+    var pendingPhone="";
+
+    lines.forEach(function(line){
+      var inline=line.match(/^(01\d{9})\s*(?:=|:|-|\s+)\s*([\d,]+)$/);
+
+      if(inline){
+        pairs.push({
+          phone:inline[1],
+          amount:Number(inline[2].replace(/,/g,""))
+        });
+        pendingPhone="";
+        return;
+      }
+
+      if(/^01\d{9}$/.test(line)){
+        if(pendingPhone)bad++;
+        pendingPhone=line;
+        return;
+      }
+
+      if(pendingPhone && /^[\d,]+$/.test(line)){
+        pairs.push({
+          phone:pendingPhone,
+          amount:Number(line.replace(/,/g,""))
+        });
+        pendingPhone="";
+        return;
+      }
+
+      bad++;
+    });
+
+    if(pendingPhone)bad++;
+
+    var known=allBlockPhones();
+    var ok=0;
+
+    pairs.forEach(function(pair){
+      var n=pair.phone;
+      var amount=pair.amount;
+
+      if(!validPhone(n) || !Number.isFinite(amount) || amount<0){
+        bad++;
+        return;
+      }
+
+      if(known.indexOf(n)===-1){
+        bad++;
+        return;
+      }
+
+      var a=account(n);
+      a.mainAmount=amount;
+      a.sentAmount=0;
+      if(!a.pinned || !Number.isFinite(a.pinOrder))a.pinOrder=nextPinOrder();
+      a.pinned=true;
+      a.updatedAt=new Date().toISOString();
+      a.deductions=[];
+      ok++;
+    });
+
+    if(!ok){
+      toast("List-এর সঠিক নাম্বার ও Amount দিন");
+      return;
+    }
+
+    close("bulkPinModal");
+    render();
+    toast(bad?ok+"টি সেভ, "+bad+"টি বাদ":ok+"টি উপরে রাখা হয়েছে");
+  };
+
+  document.querySelectorAll(".modal").forEach(function(modal){
+    modal.addEventListener("click",function(e){if(e.target===modal)modal.classList.add("hidden")})
+  });
+
+  byId("menuBtn").addEventListener("click",function(event){
+    event.stopPropagation();
+    byId("menuDropdown").classList.toggle("hidden");
+  });
+
+  document.querySelectorAll(".font-option").forEach(function(button){
+    button.addEventListener("click",function(){
+      applyFontSize(button.dataset.font);
+      byId("menuDropdown").classList.add("hidden");
+    });
+  });
+
+  document.addEventListener("click",function(event){
+    if(!byId("menuDropdown").contains(event.target) && event.target!==byId("menuBtn")){
+      byId("menuDropdown").classList.add("hidden");
+    }
+  });
+
+  var holdTimer=null;
+  var holdTarget=null;
+
+  function startHold(target){
+    if(!target)return;
+    holdTarget=target;
+    target.classList.add("holding");
+    holdTimer=setTimeout(function(){
+      var phone=target.dataset.undoPhone;
+      var index=Number(target.dataset.undoIndex);
+      target.classList.remove("holding");
+      holdTimer=null;
+      holdTarget=null;
+      undoDeduction(phone,index);
+    },5000);
+  }
+
+  function cancelHold(){
+    if(holdTimer){clearTimeout(holdTimer);holdTimer=null}
+    if(holdTarget){holdTarget.classList.remove("holding");holdTarget=null}
+  }
+
+  byId("pinnedList").addEventListener("pointerdown",function(event){
+    var chip=event.target.closest(".deduction-chip[data-undo-phone]");
+    if(!chip)return;
+    event.preventDefault();
+    startHold(chip);
+  });
+
+  ["pointerup","pointercancel","pointerleave"].forEach(function(type){
+    byId("pinnedList").addEventListener(type,cancelHold);
+  });
+
+  applyFontSize(localStorage.getItem(FONT_KEY)||"medium");
+
+  document.addEventListener("click",function(event){
+    var amountTarget=event.target.closest("[data-copy-amount]");
+    if(!amountTarget)return;
+    var amount=amountTarget.dataset.copyAmount;
+    if(amount===undefined)return;
+    copyText(String(amount),"Amount কপি হয়েছে");
+  });
+
+  var lastTapTime=0;
+  var lastTapChip=null;
+
+  byId("pinnedList").addEventListener("click",function(event){
+    var chip=event.target.closest(".deduction-chip[data-undo-phone]");
+    if(!chip)return;
+    var now=Date.now();
+
+    if(lastTapChip===chip && now-lastTapTime<450){
+      lastTapTime=0;
+      lastTapChip=null;
+      undoDeduction(chip.dataset.undoPhone,Number(chip.dataset.undoIndex));
+      return;
+    }
+
+    lastTapTime=now;
+    lastTapChip=chip;
+  });
+
+  document.addEventListener("click",function(event){
+    var fullNumberTarget=event.target.closest("[data-copy-full-number]");
+    if(!fullNumberTarget)return;
+
+    var fullNumber=fullNumberTarget.dataset.copyFullNumber;
+    if(!fullNumber)return;
+
+    copyText(fullNumber,"পুরো নাম্বার কপি হয়েছে");
+  });
+
+  document.addEventListener("click",function(event){
+    var numberTarget=event.target.closest("[data-copy-last3]");
+    if(!numberTarget)return;
+
+    var last3=numberTarget.dataset.copyLast3;
+    if(!last3)return;
+
+    copyText(last3,"শেষ ৩ ডিজিট কপি হয়েছে");
+  });
+
+  byId("chatFab").onclick=openChatModal;
+  window.addEventListener("popstate",function(){
+    if(chatOpen){
+      closeChatModal(true);
+    }
+  });
+  byId("closeChatModal").onclick=function(){closeChatModal(false)};
+  byId("enableNotifyBtn").onclick=requestChatNotify;
+  byId("deleteAllChatBtn").onclick=deleteAllChatPermanently;
+  byId("changeRoleBtn").onclick=function(){
+    byId("deviceNameInput").value=chatName||"";
+    byId("roleModal").classList.remove("hidden");
+  };
+  byId("closeRoleModal").onclick=function(){close("roleModal")};
+  byId("setUserRoleBtn").onclick=saveChatName;
+  byId("setAdminRoleBtn").onclick=saveChatName;
+
+  byId("chatCompose").onsubmit=function(event){
+    event.preventDefault();
+    var input=byId("chatText");
+    var text=String(input.value||"").trim();
+    if(!text){
+      input.focus();
+      return;
+    }
+    sendChatText(text).then(function(){
+      input.value="";
+      input.style.height="";
+      input.focus();
+    }).catch(function(error){
+      console.error(error);
+      toast("Message পাঠানো যায়নি");
+    });
+  };
+
+  byId("chatText").addEventListener("input",function(){
+    this.style.height="auto";
+    this.style.height=Math.min(this.scrollHeight,110)+"px";
+  });
+
+  byId("chatList").onclick=function(event){
+    var button=event.target.closest("[data-wa-action]");
+    if(!button)return;
+
+    var action=button.dataset.waAction;
+    var id=button.dataset.waId;
+    var message=findWaMessage(id);
+    if(!message)return;
+    var parsed=parseNumberMessage(message.text);
+
+    if(action==="copy" && parsed){
+      copyText(parsed.phone+" = "+parsed.amount,"নাম্বার ও Amount কপি হয়েছে");
+      return;
+    }
+
+    if(action==="take" && parsed){
+      var ref=window.firebaseDB.ref(CHAT_PATH+"/"+id);
+      ref.transaction(function(current){
+        if(!current || current.claimedBy)return;
+        current.claimedBy=chatDeviceId;
+        current.claimedName=chatName;
+        current.claimedAt=Date.now();
+        return current;
+      },function(error,committed){
+        if(error){
+          toast("নাম্বার নেওয়া যায়নি");
+          return;
+        }
+        if(!committed){
+          toast("অন্য User আগে নিয়ে নিয়েছে");
+          return;
+        }
+        copyText(parsed.phone+" = "+parsed.amount,"Copy হয়েছে এবং আপনার নামে নেওয়া হয়েছে");
+      });
+      return;
+    }
+
+    if(action==="delete"){
+      var isOwner=message.senderDeviceId===chatDeviceId;
+      var isMainAdmin=/main\s*admin|admin/i.test(chatName||"");
+
+      if(!isOwner && !isMainAdmin){
+        toast("শুধু Sender বা Main Admin Delete করতে পারবেন");
+        return;
+      }
+
+      if(confirm("এই message স্থায়ীভাবে Delete করবেন?")){
+        window.firebaseDB.ref(CHAT_PATH+"/"+id).remove();
+      }
+    }
+  };
+
+  getTemporaryActivePhone();
+  migratePinOrders();
+  saveLocalOnly();
+  render();
+
+  if(window.firebaseDB){
+    window.firebaseDB.ref(FIREBASE_PATH).on(
+      "value",
+      function(snapshot){
+        cloudReady=true;
+        var raw=snapshot.val();
+
+        if(typeof raw==="string"&&raw){
+          applyCloudPayload(raw);
+        }else{
+          window.firebaseDB.ref(FIREBASE_PATH).set(cloudPayload()).catch(function(error){
+            console.error("Initial Firebase save failed:",error);
+            toast("Cloud connect হয়নি, local mode চলছে");
+          });
+        }
+      },
+      function(error){
+        cloudReady=false;
+        console.error("Firebase read failed:",error);
+        toast("Offline mode");
+      }
+    );
+  }else{
+    cloudReady=false;
+    console.error("Firebase SDK unavailable:",window.firebaseInitError);
+  }
+
+  startWhatsAppListener();
+
+  if(chatName){
+    byId("chatIdentity").textContent=chatName;
+  }
+})();
+</script>
+
+</body>
+</html>
